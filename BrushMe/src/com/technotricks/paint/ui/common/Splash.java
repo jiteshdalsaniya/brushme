@@ -1,0 +1,45 @@
+package com.technotricks.paint.ui.common;
+
+import com.technotricks.paint.R;
+import com.technotricks.paint.baseactivity.BaseActivity;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+
+public class Splash extends BaseActivity {
+
+	private Context context;
+	private Intent i;
+
+	private final int SPLASH_DISPLAY_LENGTH = 5000;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_splash);
+
+		context = this;
+
+		 setupAd();
+		intializeUI();
+	}
+
+	private void intializeUI() {
+
+		new Handler().postDelayed(new Runnable() {
+
+			public void run() {
+
+				i = new Intent(context, MenuActivity.class);
+				startActivity(i);
+				finish();
+			}
+		}, SPLASH_DISPLAY_LENGTH);
+
+	}
+
+}
