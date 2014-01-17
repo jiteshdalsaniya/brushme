@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
@@ -20,30 +21,32 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
-
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
 import com.technotricks.paint.customclass.FloodFill;
+import com.technotricks.paint.manager.ColorPickerDialog;
+import com.technotricks.paint.manager.ColorPickerDialog.OnColorChangedListener;
 
-
-public class PaintPanalActivity extends BaseActivity implements OnClickListener ,OnTouchListener{
+public class PaintPanalActivity extends BaseActivity implements
+		OnClickListener, OnTouchListener ,OnColorChangedListener{
 
 	private Context context;
 	private Intent i;
-	private Button btnRed, btnBlue, btnGrey, btnBlack;
+	private Button btnRed, btnBlue, btnGrey, btnRose;
 	private ImageView imgPanel;
 
-	 Matrix matrix = new Matrix();
-	 Matrix savedMatrix = new Matrix();
-	 PointF start = new PointF();
-	//Bitmap Items..
+	private Matrix matrix = new Matrix();
+	private Matrix savedMatrix = new Matrix();
+	private PointF start = new PointF();
+	private Paint mPaint;
+	// Bitmap Items..
 	private Bitmap _alteredBitmap;
-	Bitmap bitmap;
+	private Bitmap bitmap;
+
 	
-	
-	private DrawAsync drawAsync;
-	
-	int  originalImageOffsetX = 0, originalImageOffsetY = 0,color = 0;
+
+	int originalImageOffsetX = 0, originalImageOffsetY = 0, color = 0,newColor = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -56,37 +59,33 @@ public class PaintPanalActivity extends BaseActivity implements OnClickListener 
 		setupAd();
 		intializeUI();
 		setListner();
-		
-		initializeCanvas();          
-	}
 
-	
+		initializeCanvas();
+	}
 
 	private void intializeUI() {
 		btnRed = (Button) findViewById(R.id.btnRed);
 		btnBlue = (Button) findViewById(R.id.btnBlue);
 		btnGrey = (Button) findViewById(R.id.btnGrey);
-		btnBlack = (Button) findViewById(R.id.btnBlack);
-		
-		imgPanel=(ImageView)findViewById(R.id.imgPanel);
-		
-		drawAsync=new DrawAsync();
+		btnRose = (Button) findViewById(R.id.btnRose);
+
+		imgPanel = (ImageView) findViewById(R.id.imgPanel);
+
+		 newColor = getResources().getColor(R.color.rose);
 
 	}
-	
+
 	private void initializeCanvas() {
-		
+
 		BitmapDrawable drawable = (BitmapDrawable) imgPanel.getDrawable();
 		Bitmap bmp = drawable.getBitmap();
-		try 
-		{
+		try {
 			_alteredBitmap = Bitmap.createBitmap(bmp.getWidth(),
 					bmp.getHeight(), Bitmap.Config.ARGB_8888);
-		} catch (Exception e) 
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		Canvas canvas = new Canvas(_alteredBitmap);
 		Paint paint = new Paint();
 		Matrix matrix = new Matrix();
@@ -95,11 +94,13 @@ public class PaintPanalActivity extends BaseActivity implements OnClickListener 
 		imgPanel.setImageBitmap(_alteredBitmap);
 		imgPanel.setOnTouchListener(this);
 		
+		
+
 	}
 
 	private void setListner() {
 		btnRed.setOnClickListener(this);
-		btnBlack.setOnClickListener(this);
+		btnRose.setOnClickListener(this);
 		btnBlue.setOnClickListener(this);
 		btnGrey.setOnClickListener(this);
 
@@ -108,31 +109,38 @@ public class PaintPanalActivity extends BaseActivity implements OnClickListener 
 	@Override
 	public void onClick(View v) {
 		if (v == btnRed) {
+			
+			//newColor=getResources().getColor(R.color.red);
+			
+			//new ColorPicker(context, this, "", Color.BLACK, Color.WHITE).show();
+			new ColorPickerDialog(context, this, "", Color.BLACK, Color.WHITE).show();
 
-		} else if (v == btnBlack) {
+		} else if (v == btnRose) {
+			
+			newColor=getResources().getColor(R.color.rose);
 
 		} else if (v == btnBlue) {
+			newColor=getResources().getColor(R.color.blue);
 
 		} else if (v == btnGrey) {
+			newColor=getResources().getColor(R.color.grey);
 
 		}
 
 	}
 
-
-
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		
+
 		ImageView view = (ImageView) imgPanel;
-		
+
 		int action = event.getAction() & MotionEvent.ACTION_MASK;
-		
+
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
-			
+
 			System.out.println("ACTION_DOWN");
-			
+
 			BitmapDrawable drawable = (BitmapDrawable) imgPanel.getDrawable();
 			bitmap = drawable.getBitmap();
 			Rect imageBounds = new Rect();
@@ -167,119 +175,62 @@ public class PaintPanalActivity extends BaseActivity implements OnClickListener 
 			originalImageOffsetY = Math.round(scaledImageOffsetY * heightRatio);
 
 			try {
-				color = bitmap.getPixel(originalImageOffsetX,originalImageOffsetY);
+				color = bitmap.getPixel(originalImageOffsetX,
+						originalImageOffsetY);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			 savedMatrix.set(matrix);
-			 start.set(event.getX(), event.getY());
-			 //lmib.getStatus() == AsyncTask.Status.RUNNING
-			
-			 DrawAsync drawAsync=new DrawAsync();
-			 
-			 drawAsync.execute();
-			 
-			// hRefresh.sendEmptyMessage(3);
-			
+			savedMatrix.set(matrix);
+			start.set(event.getX(), event.getY());
+			hRefresh.sendEmptyMessage(3);
+
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
-			
+
 			System.out.println("ACTION_POINTER_DOWN");
-			
-		    break;
-		    
-		  case MotionEvent.ACTION_UP:
-		  case MotionEvent.ACTION_POINTER_UP:
-			  
-			  break;
-			  
-		  case MotionEvent.ACTION_MOVE:
-			  
-			  break;
-			 
+
+			break;
+
+		case MotionEvent.ACTION_UP:
+		case MotionEvent.ACTION_POINTER_UP:
+
+			break;
+
+		case MotionEvent.ACTION_MOVE:
+
+			break;
+
 		default:
-			
-			
-			
-			
-		    break;
-			 
+
+			break;
+
 		}
-		
-		
+
 		return true;
 	}
-	
-	
-	Handler hRefresh = new Handler() 
-	{
-		public void handleMessage(Message msg) 
-		{
-			switch (msg.what) 
-			{
-			
+
+	Handler hRefresh = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+
 			case 3:
-				int newcolor = getResources().getColor(R.color.rose);
-				FloodFill floodfill = new FloodFill(bitmap, color,newcolor);
-				floodfill.fill(originalImageOffsetX,originalImageOffsetY);
 				
+				FloodFill floodfill = new FloodFill(bitmap, color, newColor);
+				floodfill.fill(originalImageOffsetX, originalImageOffsetY);
+
 				imgPanel.invalidate();
-				
+
 				break;
 			default:
 				break;
 			}
 		}
 	};
-	private class DrawAsync extends AsyncTask<String, Integer, Boolean>{
 
+	@Override
+	public void colorChanged(String key, int color) {
 		
-		
-		protected void onPostExecute(Boolean result) {
-			
-			super.onPostExecute(result);
-			imgPanel.invalidate();
-			System.out.println("Post");
-		}
-		
-		
-
-		
-
-
-
-		@Override
-		protected void onProgressUpdate(Integer... values) {
-			// TODO Auto-generated method stub
-			super.onProgressUpdate(values);
-			imgPanel.invalidate();
-			System.out.println("Update");
-		}
-
-
-
-
-
-
-
-		@Override
-		protected void onPreExecute() {
-			
-			super.onPreExecute();
-			publishProgress(1);
-			
-			System.out.println("Pree");
-		}
-
-		@Override
-		protected Boolean doInBackground(String... params) {
-			System.out.println("Doing");
-			int newcolor = getResources().getColor(R.color.rose);
-			FloodFill floodfill = new FloodFill(bitmap, color,newcolor);
-			floodfill.fill(originalImageOffsetX,originalImageOffsetY);
-			return null;
-		}
-		
+		newColor=color;
 	}
 
 }
