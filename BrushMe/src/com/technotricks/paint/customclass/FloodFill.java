@@ -1,11 +1,11 @@
-package com.technotricks.paint.ui.common;
+package com.technotricks.paint.customclass;
 
 import java.util.Stack;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
 
-class FloodFill {
+public class FloodFill {
 	private Bitmap _bmp;
 	private int _oldColor;
 	private int _newColor;

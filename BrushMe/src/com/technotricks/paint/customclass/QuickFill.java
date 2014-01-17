@@ -1,4 +1,4 @@
-package com.technotricks.paint.ui.common;
+package com.technotricks.paint.customclass;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -6,7 +6,7 @@ import java.util.Queue;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 
-class QuickFill
+public class QuickFill
 {
     private Bitmap _bmp;
     private int _oldColor;
