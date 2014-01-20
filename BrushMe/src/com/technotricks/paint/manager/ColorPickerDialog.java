@@ -199,7 +199,7 @@ public class ColorPickerDialog extends Dialog {
 				mPaint.setColor(Color.WHITE);
 			else
 				mPaint.setColor(Color.BLACK);
-			canvas.drawText(getResources().getString(R.string.action_settings), 74, 340, mPaint);
+			canvas.drawText("OK", 74, 340, mPaint);
 
 			// Draw a 'button' with the default color
 			mPaint.setStyle(Paint.Style.FILL);
@@ -211,7 +211,7 @@ public class ColorPickerDialog extends Dialog {
 				mPaint.setColor(Color.WHITE);
 			else
 				mPaint.setColor(Color.BLACK);
-			canvas.drawText(getResources().getString(R.string.action_settings), 202, 340, mPaint);
+			canvas.drawText("Cancel", 202, 340, mPaint);
 		}
 
 		@Override
@@ -292,6 +292,6 @@ public class ColorPickerDialog extends Dialog {
         };
 
         setContentView(new ColorPickerView(getContext(), l, mInitialColor, mDefaultColor));
-        setTitle(R.string.action_settings);
+        setTitle("Pick Color");
     }
 }

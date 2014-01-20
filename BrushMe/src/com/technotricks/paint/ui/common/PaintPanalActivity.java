@@ -32,7 +32,7 @@ public class PaintPanalActivity extends BaseActivity implements
 
 	private Context context;
 	private Intent i;
-	private Button btnRed, btnBlue, btnGrey, btnRose;
+	private Button btnColorPicker, btnBlue, btnGrey, btnRose;
 	private ImageView imgPanel;
 
 	private Matrix matrix = new Matrix();
@@ -64,7 +64,7 @@ public class PaintPanalActivity extends BaseActivity implements
 	}
 
 	private void intializeUI() {
-		btnRed = (Button) findViewById(R.id.btnRed);
+		btnColorPicker = (Button) findViewById(R.id.btnColorPicker);
 		btnBlue = (Button) findViewById(R.id.btnBlue);
 		btnGrey = (Button) findViewById(R.id.btnGrey);
 		btnRose = (Button) findViewById(R.id.btnRose);
@@ -99,7 +99,7 @@ public class PaintPanalActivity extends BaseActivity implements
 	}
 
 	private void setListner() {
-		btnRed.setOnClickListener(this);
+		btnColorPicker.setOnClickListener(this);
 		btnRose.setOnClickListener(this);
 		btnBlue.setOnClickListener(this);
 		btnGrey.setOnClickListener(this);
@@ -108,7 +108,7 @@ public class PaintPanalActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View v) {
-		if (v == btnRed) {
+		if (v == btnColorPicker) {
 			
 			//newColor=getResources().getColor(R.color.red);
 			

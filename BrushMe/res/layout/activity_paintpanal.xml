@@ -2,18 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    
+    <ImageView
+        android:id="@+id/imgPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/cindrella3" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentBottom="true"
+        android:padding="5dp">
 
         <Button
-            android:id="@+id/btnRed"
+            android:id="@+id/btnColorPicker"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/ic_launcher" />
+            android:background="@drawable/colorpicker" />
 
         <Button
             android:id="@+id/btnBlue"
@@ -34,12 +43,6 @@
             android:background="@color/grey" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imgPanel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/img" />
+    
 
 </RelativeLayout>
