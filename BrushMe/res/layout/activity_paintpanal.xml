@@ -3,20 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <ImageView
-        android:id="@+id/imgPanel"
+   
+    
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linearLayout1"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/cindrella3" />
+        android:background="@drawable/popup_bg" >
+
+        <ImageView
+            android:id="@+id/imgPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/cindrella3" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="5dp">
+        android:padding="5dp" >
 
         <Button
             android:id="@+id/btnColorPicker"
@@ -42,7 +50,7 @@
             android:layout_height="80dp"
             android:background="@color/grey" />
     </LinearLayout>
-
+    
     
 
 </RelativeLayout>

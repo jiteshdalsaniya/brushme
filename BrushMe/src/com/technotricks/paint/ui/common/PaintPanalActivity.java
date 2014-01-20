@@ -28,7 +28,7 @@ import com.technotricks.paint.manager.ColorPickerDialog;
 import com.technotricks.paint.manager.ColorPickerDialog.OnColorChangedListener;
 
 public class PaintPanalActivity extends BaseActivity implements
-		OnClickListener, OnTouchListener ,OnColorChangedListener{
+		OnClickListener, OnTouchListener ,ColorPickerDialog.OnColorChangedListener/*,OnColorChangedListener*/{
 
 	private Context context;
 	private Intent i;
@@ -42,8 +42,6 @@ public class PaintPanalActivity extends BaseActivity implements
 	// Bitmap Items..
 	private Bitmap _alteredBitmap;
 	private Bitmap bitmap;
-
-	
 
 	int originalImageOffsetX = 0, originalImageOffsetY = 0, color = 0,newColor = 0;
 
@@ -72,7 +70,10 @@ public class PaintPanalActivity extends BaseActivity implements
 		imgPanel = (ImageView) findViewById(R.id.imgPanel);
 
 		 newColor = getResources().getColor(R.color.rose);
+		 mPaint=new Paint();
 
+		 
+		
 	}
 
 	private void initializeCanvas() {
@@ -113,7 +114,11 @@ public class PaintPanalActivity extends BaseActivity implements
 			//newColor=getResources().getColor(R.color.red);
 			
 			//new ColorPicker(context, this, "", Color.BLACK, Color.WHITE).show();
-			new ColorPickerDialog(context, this, "", Color.BLACK, Color.WHITE).show();
+		//	new ColorPickerDialog(context, this, "", Color.BLACK, Color.WHITE).show();
+			
+			mPaint.setColor(Color.BLUE);
+			new ColorPickerDialog(context, this, mPaint.getColor()).show();
+			
 
 		} else if (v == btnRose) {
 			
@@ -228,9 +233,17 @@ public class PaintPanalActivity extends BaseActivity implements
 	};
 
 	@Override
+	public void colorChanged(int color) {
+		// TODO Auto-generated method stub
+		
+		newColor=color;
+		
+	}
+
+	/*@Override
 	public void colorChanged(String key, int color) {
 		
 		newColor=color;
-	}
+	}*/
 
 }
