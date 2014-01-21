@@ -1,8 +1,14 @@
 package com.technotricks.paint.ui.common;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -10,6 +16,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,11 +28,13 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
 import com.technotricks.paint.customclass.FloodFill;
 import com.technotricks.paint.manager.ColorPickerDialog;
 import com.technotricks.paint.manager.ColorPickerDialog.OnColorChangedListener;
+import com.technotricks.paint.manager.Utils;
 
 public class PaintPanalActivity extends BaseActivity implements
 		OnClickListener, OnTouchListener ,ColorPickerDialog.OnColorChangedListener/*,OnColorChangedListener*/{
@@ -57,8 +66,12 @@ public class PaintPanalActivity extends BaseActivity implements
 		setupAd();
 		intializeUI();
 		setListner();
-
+		
+		
+	
 		initializeCanvas();
+		
+		
 	}
 
 	private void intializeUI() {
@@ -71,7 +84,9 @@ public class PaintPanalActivity extends BaseActivity implements
 
 		 newColor = getResources().getColor(R.color.rose);
 		 mPaint=new Paint();
-
+		 
+		 
+		 imgPanel.setImageBitmap(Utils.getBitmapFromAsset("tree.png",context));
 		 
 		
 	}
@@ -98,6 +113,8 @@ public class PaintPanalActivity extends BaseActivity implements
 		
 
 	}
+	
+	
 
 	private void setListner() {
 		btnColorPicker.setOnClickListener(this);

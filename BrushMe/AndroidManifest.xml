@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ui.common.Splash"
+            android:name=".ui.common.PaintPanalActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
         </activity>
         
         <activity android:name=".ui.common.MenuActivity"  android:screenOrientation="portrait"/>
-            <activity android:name=".ui.common.PaintPanalActivity"  android:screenOrientation="portrait"/>
+          <!--   <activity android:name=".ui.common.PaintPanalActivity"  android:screenOrientation="portrait"/> -->
         
     </application>
 
