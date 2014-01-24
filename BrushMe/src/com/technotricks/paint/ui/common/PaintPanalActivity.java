@@ -86,7 +86,7 @@ public class PaintPanalActivity extends BaseActivity implements
 		 mPaint=new Paint();
 		 
 		 
-		 imgPanel.setImageBitmap(Utils.getBitmapFromAsset("tree.png",context));
+		 imgPanel.setImageBitmap(Utils.getBitmapFromAsset("Trees.png",context));
 		 
 		
 	}

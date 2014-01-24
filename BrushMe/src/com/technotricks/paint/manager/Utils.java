@@ -10,7 +10,7 @@ import android.graphics.BitmapFactory;
 
 public class Utils {
 	
-	private static String assetFolderName="Tree"; 
+	private static String assetFolderName="IMAGES"; 
 	
 	public static Bitmap getBitmapFromAsset(String strName,Context context)
     {
