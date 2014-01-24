@@ -24,7 +24,7 @@ public class Splash extends BaseActivity {
 
 		context = this;
 
-		 setupAd();
+		setupAd();
 		intializeUI();
 	}
 

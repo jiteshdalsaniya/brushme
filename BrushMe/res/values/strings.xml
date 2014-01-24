@@ -4,5 +4,16 @@
     <string name="app_name">BrushMe</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    
+    <!--  -->
+    
+    <string name="action_wall">Set Wallpapper</string>
+    
+    <string name="action_share">Share</string>
+    
+    <string name="action_save">Save</string>
+    
+     <string name="action_new">New</string>
 
 </resources>

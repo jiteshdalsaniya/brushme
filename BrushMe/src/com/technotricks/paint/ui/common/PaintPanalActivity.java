@@ -1,13 +1,18 @@
 package com.technotricks.paint.ui.common;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Calendar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,16 +22,26 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+import android.widget.ImageView.ScaleType;
 
 import com.squareup.picasso.Picasso;
 import com.technotricks.paint.R;
@@ -53,6 +68,15 @@ public class PaintPanalActivity extends BaseActivity implements
 	private Bitmap bitmap;
 
 	int originalImageOffsetX = 0, originalImageOffsetY = 0, color = 0,newColor = 0;
+	
+	
+	
+	//Save...
+	
+	 File imageFile, directory;
+	 String mPath;
+	 
+		String dt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +110,7 @@ public class PaintPanalActivity extends BaseActivity implements
 		 mPaint=new Paint();
 		 
 		 
-		 imgPanel.setImageBitmap(Utils.getBitmapFromAsset("Trees.png",context));
+		 imgPanel.setImageBitmap(Utils.getBitmapFromAsset("Tree6.png",context));
 		 
 		
 	}
@@ -123,6 +147,55 @@ public class PaintPanalActivity extends BaseActivity implements
 		btnGrey.setOnClickListener(this);
 
 	}
+	
+	 @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.menu.paint, menu);
+	 
+	        return super.onCreateOptionsMenu(menu);
+	    }
+	 
+	 @Override
+	  public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    case R.id.action_save:
+	    	
+	    	//hRefresh.sendEmptyMessage(2);
+	    	
+	    	new Thread() 
+			{
+				public void run() 
+				{
+					try 
+					{
+					// This is just a tmp sleep so that we can emulate
+					// something loading
+					Thread.sleep(1000);
+					// Use this handler so than you can update the UI from a
+					// thread
+					hRefresh.sendEmptyMessage(2);
+					} catch (Exception e) {
+										}
+				}
+			}.start();
+	     
+	      break;
+	    case R.id.action_setasWall:
+	     
+	      break;
+	      
+	    case R.id.action_share:
+		     
+		      break;
+
+
+	    default:
+	      break;
+	    }
+
+	    return true;
+	  } 
 
 	@Override
 	public void onClick(View v) {
@@ -234,6 +307,12 @@ public class PaintPanalActivity extends BaseActivity implements
 	Handler hRefresh = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
+			
+			case 2:
+				Utils.save(imgPanel, context);
+				
+				//taptoshare(imgPanel);
+				break;
 
 			case 3:
 				
@@ -256,11 +335,41 @@ public class PaintPanalActivity extends BaseActivity implements
 		newColor=color;
 		
 	}
+	
+	public void taptoshare(ImageView imageView)
+	{  
+	    View content = imageView;
+	    content.setDrawingCacheEnabled(true);
+	        Bitmap bitmap = content.getDrawingCache();
+	        
+	        File root = Environment.getExternalStorageDirectory();
+	        File file = new File(root.getAbsolutePath() + "/BBB/image.jpg");
+	     //   File file = new File("/BRESH/Camera/image.jpg");
+	        try 
+	        {
+	            file.createNewFile();
+	            FileOutputStream ostream = new FileOutputStream(file);
+	            bitmap.compress(CompressFormat.JPEG, 100, ostream);
+	            ostream.close();
+	        } 
+	        catch (Exception e) 
+	        {
+	            e.printStackTrace();
+	        }
 
-	/*@Override
-	public void colorChanged(String key, int color) {
-		
-		newColor=color;
-	}*/
+
+	    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+	    Uri phototUri = Uri.parse("/DCIM/Camera/image.jpg");
+	    shareIntent.setData(phototUri);
+	    shareIntent.setType("image/*");
+	    shareIntent.putExtra(Intent.EXTRA_STREAM, phototUri);
+	    startActivity(Intent.createChooser(shareIntent, "Share Via"));
+
+	}   
+
+	
+	
+	
+	
 
 }
