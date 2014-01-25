@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.technotricks.paint.constants.IAPPConstants;
 import com.technotricks.paint.model.ImagesGridModel;
 
 import android.annotation.SuppressLint;
@@ -36,9 +37,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 
-public class Utils {
+public class Utils implements IAPPConstants {
 	
-	private static String assetFolderName="IMAGES"; 
+	//private static String assetFolderName="IMAGES"; 
 	
 	
 	
@@ -76,7 +77,9 @@ public class Utils {
         AssetManager assetManager = context.getAssets();
         InputStream istr = null;
         try {
-            istr = assetManager.open(assetFolderName+"/"+strName);
+            istr = assetManager.open(ASSERT_FOLDER_NAME+"/"+strName);
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,7 +91,7 @@ public class Utils {
 		AssetManager assetMgr = context.getAssets();
 		ArrayList<ImagesGridModel> itemList = new ArrayList<ImagesGridModel>();
 		  try {
-		   String[] assetsIWant = assetMgr.list(assetFolderName);
+		   String[] assetsIWant = assetMgr.list(ASSERT_FOLDER_NAME);
 		   
 		   System.out.println("Flags length"+assetsIWant.length);
 		   ImagesGridModel itemModel;
@@ -112,61 +115,42 @@ public class Utils {
 		  }
 	}
 	
-	public static String save(ImageView imgPanel,Context context) {
-
-		File directory,imageFile = null;
-		String mPath="";
-		String appName=getApplicationName(context);
-		Bitmap bitmap;
-		ImageView i = imgPanel;
-		i.setScaleType(ScaleType.FIT_XY);
+public 	static String saveDrawable(ImageView imageView,Context context) throws FileNotFoundException{
 	
-		mPath = Environment.getExternalStorageDirectory().toString();
-		
-		View v1 = i.getRootView();
-		
-		
-		v1.setDrawingCacheEnabled(true);
-		bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-		
+	String mPath="";
+	String filePath="";
+	String appName=getApplicationName(context);
 	
-		v1.setDrawingCacheEnabled(false);
+	mPath = Environment.getExternalStorageDirectory().toString()+"/"+appName;
+	
+        Drawable drawable = imageView.getDrawable();
+        Rect bounds = drawable.getBounds();
+        Bitmap bitmap = Bitmap.createBitmap(bounds.width(),bounds.height(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.draw(canvas);
+        OutputStream fOut = null;
+        try {
+            new File(mPath).mkdir();
+            filePath=mPath+"/"+appName + "_" + Utils.getDate()+ ".jpg";
+            fOut = new FileOutputStream(filePath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, fOut);
+            
+        } finally {
+            if ( fOut != null ){
+                try {
+                    fOut.close();
+                } catch (IOException e) {
+                    //report error
+                }
+            }
 
-		OutputStream fout = null;
-		directory = new File(mPath, appName);
-		Log.d("path", mPath);
-		Log.d("dir", directory.toString());
-		
-		directory.mkdirs();
-		Calendar c = Calendar.getInstance();                            
-
-		try {
-
-			imageFile = new File(directory, appName + "_" + Utils.getDate()+ ".jpg");
-			
-			
-			
-			Log.d("nee", imageFile.toString());
-			fout = new FileOutputStream(imageFile);
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fout);
-			fout.flush();
-			fout.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Toast.makeText(context.getApplicationContext(), "'Image saved to Gallery'",
-				Toast.LENGTH_SHORT).show();
-		context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-				Uri.parse("file://" + Environment.getExternalStorageDirectory())));  
-		
-		return imageFile.getAbsolutePath();
-	}
+        }
+        
+        
+        return filePath;
+    }
+	
+	
 	
 	
 	

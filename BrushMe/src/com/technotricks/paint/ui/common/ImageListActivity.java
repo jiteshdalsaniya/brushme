@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.technotricks.paint.R;
 import com.technotricks.paint.adapter.ImageGridAdapter;
+import com.technotricks.paint.constants.IResultConstants;
 import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.model.ImagesGridModel;
 
@@ -16,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class ImageListActivity extends Activity{
+public class ImageListActivity extends Activity implements IResultConstants{
 	
 	private Context context;
 
@@ -58,7 +59,10 @@ public class ImageListActivity extends Activity{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long arg3) {
 				
-				
+				Intent intent=new Intent();
+				intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName());
+				setResult(RESULT_NEW_IMAGE, intent);
+				finish();
 			}
 		});
 		

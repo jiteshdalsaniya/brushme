@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,13 +47,15 @@ import android.widget.ImageView.ScaleType;
 import com.squareup.picasso.Picasso;
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
+import com.technotricks.paint.constants.IResultConstants;
 import com.technotricks.paint.customclass.FloodFill;
+import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.manager.ColorPickerDialog;
 import com.technotricks.paint.manager.ColorPickerDialog.OnColorChangedListener;
 import com.technotricks.paint.manager.Utils;
 
 public class PaintPanalActivity extends BaseActivity implements
-		OnClickListener, OnTouchListener ,ColorPickerDialog.OnColorChangedListener/*,OnColorChangedListener*/{
+		OnClickListener, OnTouchListener ,ColorPickerDialog.OnColorChangedListener, IResultConstants{
 
 	private Context context;
 	private Intent i;
@@ -110,7 +113,7 @@ public class PaintPanalActivity extends BaseActivity implements
 		 mPaint=new Paint();
 		 
 		 
-		 imgPanel.setImageBitmap(Utils.getBitmapFromAsset("Tree6.png",context));
+		 imgPanel.setImageBitmap(Utils.getBitmapFromAsset(AppPreferenceManager.getBrand(context, 0).getImageName(),context));
 		 
 		
 	}
@@ -159,6 +162,13 @@ public class PaintPanalActivity extends BaseActivity implements
 	 @Override
 	  public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
+	    
+	    case R.id.action_new:
+	    
+	    	i=new Intent(context,ImageListActivity.class);
+	    	startActivityForResult(i, RESULT_NEW_IMAGE);
+	    	
+	    	  break;
 	    case R.id.action_save:
 	    	
 	    	//hRefresh.sendEmptyMessage(2);
@@ -182,10 +192,37 @@ public class PaintPanalActivity extends BaseActivity implements
 	     
 	      break;
 	    case R.id.action_setasWall:
+	    	
+	    	Bitmap bm;
+	        Boolean result;
+	        FileOutputStream fos;
+	    	 Intent i=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+             startActivityForResult(i, 100);
+             imgPanel.setDrawingCacheEnabled(true);
+             bm = imgPanel.getDrawingCache();
+
+             try {
+                 fos = new FileOutputStream("sdcard/image.jpg");
+                 result=bm.compress(CompressFormat.JPEG, 75, fos);
+
+                 fos.flush();
+                 fos.close();
+             } catch (FileNotFoundException e) {
+                 // TODO Auto-generated catch block
+
+                 e.printStackTrace();
+             } catch (IOException e) {
+                 // TODO Auto-generated catch block
+
+                 e.printStackTrace();
+             }
+
 	     
 	      break;
 	      
 	    case R.id.action_share:
+	    	
+	    	hRefresh.sendEmptyMessage(2);
 		     
 		      break;
 
@@ -309,9 +346,12 @@ public class PaintPanalActivity extends BaseActivity implements
 			switch (msg.what) {
 			
 			case 2:
-				Utils.save(imgPanel, context);
-				
-				//taptoshare(imgPanel);
+				try {
+					Utils.saveDrawable(imgPanel, context);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 
 			case 3:
@@ -365,6 +405,24 @@ public class PaintPanalActivity extends BaseActivity implements
 	    shareIntent.putExtra(Intent.EXTRA_STREAM, phototUri);
 	    startActivity(Intent.createChooser(shareIntent, "Share Via"));
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		
+		if ((requestCode == RESULT_NEW_IMAGE)&& (resultCode == RESULT_NEW_IMAGE)) {
+			
+			
+			String imageName = data.getStringExtra(RESULT_NEW_STRING);
+			
+			
+			 imgPanel.setImageBitmap(Utils.getBitmapFromAsset(imageName,context));
+			
+			 initializeCanvas();
+		}
 	}   
 
 	

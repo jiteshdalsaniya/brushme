@@ -2,7 +2,9 @@ package com.technotricks.paint.adapter;
 
 import java.util.ArrayList;
 
+import com.squareup.picasso.Picasso;
 import com.technotricks.paint.R;
+import com.technotricks.paint.constants.IAPPConstants;
 import com.technotricks.paint.manager.Utils;
 import com.technotricks.paint.model.ImagesGridModel;
 
@@ -23,7 +25,7 @@ import android.widget.Toast;
 
 import android.widget.RelativeLayout;
 
-public class ImageGridAdapter extends ArrayAdapter<ImagesGridModel> {
+public class ImageGridAdapter extends ArrayAdapter<ImagesGridModel> implements IAPPConstants{
 
 	Context context;
 
@@ -64,8 +66,8 @@ public class ImageGridAdapter extends ArrayAdapter<ImagesGridModel> {
 		
 		holder.layout.setLayoutParams(layoutSize);
 
-		
-		holder.imageIcon.setImageBitmap(Utils.getBitmapFromAsset(rowItem.getImageName(), context));
+		Picasso.with(context).load(ASSERT_FILE_DIR+rowItem.getImageName()).into(holder.imageIcon);
+		//holder.imageIcon.setImageBitmap(Utils.getBitmapFromAsset(rowItem.getImageName(), context));
 		holder.btnMore.setOnClickListener(new OnClickListener() {
 
 			@Override
