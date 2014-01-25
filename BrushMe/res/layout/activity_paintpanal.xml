@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
         android:background="@drawable/popup_bg" >
 
         <ImageView
@@ -23,7 +23,7 @@
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/bottom_bg"
         android:padding="5dp" >
 

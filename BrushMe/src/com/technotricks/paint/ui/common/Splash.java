@@ -2,6 +2,8 @@ package com.technotricks.paint.ui.common;
 
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
+import com.technotricks.paint.manager.AppPreferenceManager;
+import com.technotricks.paint.manager.Utils;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +31,11 @@ public class Splash extends BaseActivity {
 	}
 
 	private void intializeUI() {
+		
+		
+		if (AppPreferenceManager.getBrands(context).size()==0) {
+			Utils.getList(context);
+		}
 
 		new Handler().postDelayed(new Runnable() {
 

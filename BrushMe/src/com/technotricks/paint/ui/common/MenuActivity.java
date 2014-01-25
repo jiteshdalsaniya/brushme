@@ -16,6 +16,8 @@ public class MenuActivity extends BaseActivity implements OnClickListener{
 	private Intent i;
 	
 	private Button btnStart;
+	private Button btnMoreImages;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,14 @@ public class MenuActivity extends BaseActivity implements OnClickListener{
 
 	private void setListner() {
 		btnStart.setOnClickListener(this);
+		btnMoreImages.setOnClickListener(this);
 		
 	}
 
 	private void intializeUI() {
 		btnStart=(Button)findViewById(R.id.btnStart);
+		
+		btnMoreImages=(Button)findViewById(R.id.btnMoreImages);
 		
 	}
 
@@ -45,6 +50,11 @@ public class MenuActivity extends BaseActivity implements OnClickListener{
 	public void onClick(View v) {
 		if(v==btnStart){
 			i=new Intent(context,PaintPanalActivity.class);
+			startActivity(i);
+		}
+		
+		else if (v==btnMoreImages) {
+			i=new Intent(context,ImageListActivity.class);
 			startActivity(i);
 		}
 		
