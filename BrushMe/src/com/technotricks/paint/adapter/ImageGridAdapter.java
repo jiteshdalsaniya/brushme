@@ -1,9 +1,8 @@
 package com.technotricks.paint.adapter;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import com.squareup.picasso.Picasso;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.technotricks.paint.R;
 import com.technotricks.paint.constants.IDIRConstants;
 import com.technotricks.paint.constants.IIntentConstants;
@@ -20,9 +19,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import android.widget.RelativeLayout;
@@ -34,6 +32,7 @@ public class ImageGridAdapter extends ArrayAdapter<ImagesGridModel> implements I
 	private RelativeLayout.LayoutParams layoutSize;
 	
 	private String ACTIVITY_TYPE;
+	 protected ImageLoader imageLoader = ImageLoader.getInstance();
 
 	public ImageGridAdapter(Context context, int resource,
 			ArrayList<ImagesGridModel> objects, int numColumns, String ACTIVITY_TYPE) {
@@ -72,15 +71,9 @@ public class ImageGridAdapter extends ArrayAdapter<ImagesGridModel> implements I
 		
 		holder.layout.setLayoutParams(layoutSize);
 
-		System.out.println("IMAGE PATH/ NAME== "+rowItem.getImageName_OR_Path());
-		if (ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST)) {
-			Picasso.with(context).load(new File(rowItem.getImageName_OR_Path())).into(holder.imageIcon);
-			
-		}
-		else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST)) {
-		Picasso.with(context).load(ASSERT_FILE_DIR+rowItem.getImageName_OR_Path()).into(holder.imageIcon);
-		}
-		//holder.imageIcon.setImageBitmap(Utils.getBitmapFromAsset(rowItem.getImageName(), context));
+		imageLoader.displayImage(rowItem.getImageName_OR_Path(), holder.imageIcon);
+		
+	
 		holder.btnMore.setOnClickListener(new OnClickListener() {
 
 			@Override

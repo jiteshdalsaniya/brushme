@@ -72,16 +72,29 @@ public class ImageListActivity extends Activity implements IResultConstants,IInt
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long arg3) {
 				
-				/*Intent intent=new Intent();
-				intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
-				intent.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
-				setResult(RESULT_NEW_IMAGE, intent);
-				finish();*/
 				
-				Intent intent=new Intent(context,PaintPanalActivity.class);
+				if (ACTIVITY_TYPE.equals(INTENT_IMAGE_RESULT_BACK)) {
+					
+					Intent intent=new Intent();
+					intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
+				//	intent.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
+					setResult(RESULT_NEW_IMAGE, intent);
+					finish();
+					
+				}
+				else if ((ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST))||(ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST))){
+					Intent intent=new Intent(context,PaintPanalActivity.class);
+					intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
+					intent.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
+					startActivity(intent);
+					finish();
+				}
+			
+				
+			/*	Intent intent=new Intent(context,PaintPanalActivity.class);
 				intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
 				intent.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
-				startActivity(intent);
+				startActivity(intent);*/
 			}
 		});
 		
@@ -103,9 +116,9 @@ public class ImageListActivity extends Activity implements IResultConstants,IInt
 			
 			
 		}
-		else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST)) {
+		else if ((ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST)) || (ACTIVITY_TYPE.equals(INTENT_IMAGE_RESULT_BACK))) {
 			
-			imagesGridList=AppPreferenceManager.getBrands(context);
+			imagesGridList=AppPreferenceManager.getImages(context);
 		}
 		
 		

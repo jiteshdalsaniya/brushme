@@ -8,6 +8,7 @@ import com.chartboost.sdk.ChartboostDelegate;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.revmob.RevMob;
 import com.revmob.RevMobAdsListener;
 import com.revmob.RevMobUserGender;
@@ -91,6 +92,10 @@ public class BaseActivity extends Activity {
 	
 	//leadbolt...
 	
+	
+	
+	//mem catche
+	 protected ImageLoader imageLoader = ImageLoader.getInstance();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

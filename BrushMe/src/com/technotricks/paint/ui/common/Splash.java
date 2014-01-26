@@ -33,7 +33,7 @@ public class Splash extends BaseActivity {
 	private void intializeUI() {
 		
 		
-		if (AppPreferenceManager.getBrands(context).size()==0) {
+		if (AppPreferenceManager.getImages(context).size()==0) {
 			Utils.getList(context);
 		}
 

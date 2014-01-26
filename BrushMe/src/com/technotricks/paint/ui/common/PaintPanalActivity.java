@@ -21,15 +21,9 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,12 +33,8 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-import android.widget.ImageView.ScaleType;
-
-import com.squareup.picasso.Picasso;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
 import com.technotricks.paint.constants.IIntentConstants;
@@ -52,12 +42,12 @@ import com.technotricks.paint.constants.IResultConstants;
 import com.technotricks.paint.customclass.FloodFill;
 import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.manager.ColorPickerDialog;
-import com.technotricks.paint.manager.ColorPickerDialog.OnColorChangedListener;
 import com.technotricks.paint.manager.Utils;
 
 public class PaintPanalActivity extends BaseActivity implements
 		OnClickListener, OnTouchListener,
-		ColorPickerDialog.OnColorChangedListener, IResultConstants,IIntentConstants {
+		ColorPickerDialog.OnColorChangedListener, IResultConstants,
+		IIntentConstants {
 
 	private Context context;
 	private Intent i;
@@ -80,12 +70,10 @@ public class PaintPanalActivity extends BaseActivity implements
 	File imageFile, directory;
 	String mPath;
 	String dt;
-	
-	
-	//Type..
-	String ACTIVITY_TYPE="";
-	String imagePath="";
-	
+
+	// Type..
+	String ACTIVITY_TYPE = "";
+	String imagePath = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,22 +83,22 @@ public class PaintPanalActivity extends BaseActivity implements
 		setContentView(R.layout.activity_paintpanal);
 
 		context = this;
-		
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			ACTIVITY_TYPE = extras.getString(INTENT_IMAGE_TYPE);
-			imagePath= extras.getString(INTENT_IMAGE_TYPE);
+			imagePath = extras.getString(RESULT_NEW_STRING);
 		}
-		
-		System.out.println("ACTIVITY_TYPE ="+ACTIVITY_TYPE);
-		
-		System.out.println("imagePath = "+imagePath);
+
+		System.out.println("ACTIVITY_TYPE =" + ACTIVITY_TYPE);
+
+		System.out.println("imagePath = " + imagePath);
 
 		setupAd();
 		intializeUI();
 		setListner();
 
-		initializeCanvas();
+		// initializeCanvas();
 
 	}
 
@@ -125,19 +113,18 @@ public class PaintPanalActivity extends BaseActivity implements
 		newColor = getResources().getColor(R.color.rose);
 		mPaint = new Paint();
 
-		if (ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST)) {
-			imgPanel.setImageBitmap(Utils.getfileToBitmap(imagePath));
-		}
-		else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST)) {
-			imgPanel.setImageBitmap(Utils.getBitmapFromAsset(imagePath, context));
+	
+
+		if ((ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST))||(ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST))) {
 			
+			loadImage(imagePath);
 			
+		} else {
+			loadImage(AppPreferenceManager.getImage(context, 0)
+					.getImageName_OR_Path());
 		}
-		else{
-			imgPanel.setImageBitmap(Utils.getBitmapFromAsset(AppPreferenceManager
-					.getBrand(context, 0).getImageName_OR_Path(), context));
-		}
-		
+
+	
 
 	}
 
@@ -186,8 +173,9 @@ public class PaintPanalActivity extends BaseActivity implements
 		case R.id.action_new:
 
 			i = new Intent(context, ImageListActivity.class);
-			
-			i.putExtra(INTENT_IMAGE_TYPE, INTENT_IMAGE_LIST);
+
+			i.putExtra(INTENT_IMAGE_TYPE, INTENT_IMAGE_RESULT_BACK);
+
 			startActivityForResult(i, RESULT_NEW_IMAGE);
 
 			break;
@@ -218,13 +206,6 @@ public class PaintPanalActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		if (v == btnColorPicker) {
-
-			// newColor=getResources().getColor(R.color.red);
-
-			// new ColorPicker(context, this, "", Color.BLACK,
-			// Color.WHITE).show();
-			// new ColorPickerDialog(context, this, "", Color.BLACK,
-			// Color.WHITE).show();
 
 			mPaint.setColor(Color.BLUE);
 			new ColorPickerDialog(context, this, mPaint.getColor()).show();
@@ -381,7 +362,37 @@ public class PaintPanalActivity extends BaseActivity implements
 
 	}
 
-	
+	public void loadImage(String path) {
+		
+		System.out.println("IMAGE PATH== "+path);
+		imageLoader.displayImage("http://wedrawyourface.com/assets/img/devon_vector_bw_avatar.png", imgPanel, new ImageLoadingListener() {
+
+			@Override
+			public void onLoadingStarted(String arg0, View arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
+
+				initializeCanvas();
+
+			}
+
+			@Override
+			public void onLoadingCancelled(String arg0, View arg1) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -391,12 +402,11 @@ public class PaintPanalActivity extends BaseActivity implements
 		if ((requestCode == RESULT_NEW_IMAGE)
 				&& (resultCode == RESULT_NEW_IMAGE)) {
 
-			String imageName = data.getStringExtra(RESULT_NEW_STRING);
+			String imagePath = data.getStringExtra(RESULT_NEW_STRING);
 
-			imgPanel.setImageBitmap(Utils
-					.getBitmapFromAsset(imageName, context));
+			System.out.println("Path =   " + imagePath);
 
-			initializeCanvas();
+			loadImage(imagePath);
 		}
 	}
 

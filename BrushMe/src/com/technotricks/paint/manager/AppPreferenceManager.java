@@ -25,7 +25,7 @@ public class AppPreferenceManager {
 
 	
 
-	public static void saveBrands(Context ctx, ArrayList<ImagesGridModel> list) {
+	public static void saveImages(Context ctx, ArrayList<ImagesGridModel> list) {
 		SharedPreferences prefs = ctx.getSharedPreferences(PREFERANCE_NAME,
 				Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
@@ -34,7 +34,7 @@ public class AppPreferenceManager {
 		editor.commit();
 	}
 
-	public static ArrayList<ImagesGridModel> getBrands(Context ctx) {
+	public static ArrayList<ImagesGridModel> getImages(Context ctx) {
 		ArrayList<ImagesGridModel> listItems = null;
 		SharedPreferences prefs = ctx.getSharedPreferences(PREFERANCE_NAME,
 				Context.MODE_PRIVATE);
@@ -50,7 +50,7 @@ public class AppPreferenceManager {
 		return listItems;
 	}
 
-	public static ImagesGridModel getBrand(Context ctx, int position) {
+	public static ImagesGridModel getImage(Context ctx, int position) {
 		ArrayList<ImagesGridModel> listItems = null;
 		SharedPreferences prefs = ctx.getSharedPreferences(PREFERANCE_NAME,
 				Context.MODE_PRIVATE);

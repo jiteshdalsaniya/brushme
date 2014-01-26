@@ -103,17 +103,17 @@ public class Utils implements IDIRConstants {
 
 				itemModel = new ImagesGridModel();
 				itemModel.setId(String.valueOf(i + 1));
-				System.out.println("file name"
-						+ assetsIWant[i].substring(0,
-								assetsIWant[i].lastIndexOf('.')));
-				itemModel.setImageName_OR_Path(assetsIWant[i]);
+				System.out.println("file name "+ assetsIWant[i].substring(0,assetsIWant[i].lastIndexOf('.')));
+				//itemModel.setImageName_OR_Path(assetsIWant[i]);
+				
+				itemModel.setImageName_OR_Path(ASSERT_FILE_DIR+assetsIWant[i]);
 				itemList.add(itemModel);
 			}
 
-			AppPreferenceManager.saveBrands(context, itemList);
+			
+			AppPreferenceManager.saveImages(context, itemList);
 			System.out.println("flag list size" + itemList.size());
-			System.out.println("preference flag list size"
-					+ AppPreferenceManager.getBrands(context).size());
+			System.out.println("preference flag list size"+ AppPreferenceManager.getImages(context).size());
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -125,6 +125,8 @@ public class Utils implements IDIRConstants {
 		String filePath = Environment.getExternalStorageDirectory()+ File.separator + SDCARD_FOLDER_NAME;
 		ArrayList<ImagesGridModel> imageList = new ArrayList<ImagesGridModel>();
 		File dir ;
+		
+		System.out.println("SD CARD PATH= "+filePath);
 		dir = new File(filePath);
 		
 	
@@ -137,7 +139,7 @@ public class Utils implements IDIRConstants {
 				 for (File file : content) {
 					ImagesGridModel model=new ImagesGridModel();
 					
-					model.setImageName_OR_Path(file.getAbsolutePath());
+					model.setImageName_OR_Path(SDCARD_FILE_DIR+file.getAbsolutePath());
 					 
 					imageList.add(model);
 				}
@@ -169,7 +171,8 @@ public class Utils implements IDIRConstants {
 			new File(mPath).mkdir();
 			filePath = mPath + "/" + appName + "_" + Utils.getDate() + ".jpg";
 			fOut = new FileOutputStream(filePath);
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 95, fOut);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+			
 
 		} finally {
 			if (fOut != null) {
@@ -215,7 +218,7 @@ public class Utils implements IDIRConstants {
 			new File(mPath).mkdir();
 			filePath = mPath + "/" + appName + "_temp.jpg";
 			fOut = new FileOutputStream(filePath);
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 95, fOut);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
 
 		} finally {
 			if (fOut != null) {
