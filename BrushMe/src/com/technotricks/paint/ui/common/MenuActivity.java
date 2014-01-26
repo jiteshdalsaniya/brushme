@@ -9,14 +9,18 @@ import android.widget.Button;
 
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
+import com.technotricks.paint.constants.IIntentConstants;
+import com.technotricks.paint.manager.Utils;
 
-public class MenuActivity extends BaseActivity implements OnClickListener{
+public class MenuActivity extends BaseActivity implements OnClickListener , IIntentConstants{
 	
 	private Context context;
 	private Intent i;
 	
 	private Button btnStart;
 	private Button btnMoreImages;
+	private Button btnSavedImages;
+
 	
 	
 	@Override
@@ -33,16 +37,19 @@ public class MenuActivity extends BaseActivity implements OnClickListener{
 		
 	}
 
-	private void setListner() {
-		btnStart.setOnClickListener(this);
-		btnMoreImages.setOnClickListener(this);
-		
-	}
+	
 
 	private void intializeUI() {
 		btnStart=(Button)findViewById(R.id.btnStart);
 		
 		btnMoreImages=(Button)findViewById(R.id.btnMoreImages);
+		btnSavedImages=(Button)findViewById(R.id.btnSavedImages);
+	}
+	
+	private void setListner() {
+		btnStart.setOnClickListener(this);
+		btnMoreImages.setOnClickListener(this);
+		btnSavedImages.setOnClickListener(this);
 		
 	}
 
@@ -55,7 +62,17 @@ public class MenuActivity extends BaseActivity implements OnClickListener{
 		
 		else if (v==btnMoreImages) {
 			i=new Intent(context,ImageListActivity.class);
+			i.putExtra(INTENT_IMAGE_TYPE, INTENT_IMAGE_LIST);
 			startActivity(i);
+		}
+		
+		else if (v==btnSavedImages) {
+			i=new Intent(context,ImageListActivity.class);
+			
+			i.putExtra(INTENT_IMAGE_TYPE, INTENT_IMAGE_SAVE_LIST);
+			startActivity(i);
+			
+			//System.out.println("SD CARD"+Utils.getSdCardFileList(context).size());
 		}
 		
 	}

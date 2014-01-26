@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import com.technotricks.paint.R;
 import com.technotricks.paint.adapter.ImageGridAdapter;
+import com.technotricks.paint.constants.IIntentConstants;
 import com.technotricks.paint.constants.IResultConstants;
+import com.technotricks.paint.manager.AlertManager;
 import com.technotricks.paint.manager.AppPreferenceManager;
+import com.technotricks.paint.manager.Utils;
 import com.technotricks.paint.model.ImagesGridModel;
 
 import android.app.Activity;
@@ -16,8 +19,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.Toast;
 
-public class ImageListActivity extends Activity implements IResultConstants{
+public class ImageListActivity extends Activity implements IResultConstants,IIntentConstants{
 	
 	private Context context;
 
@@ -28,6 +32,10 @@ public class ImageListActivity extends Activity implements IResultConstants{
 	private ImageGridAdapter gridAdapter; ;
 	
 	private ArrayList<ImagesGridModel> imagesGridList;
+	
+	//Type..
+		String ACTIVITY_TYPE="";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -35,6 +43,11 @@ public class ImageListActivity extends Activity implements IResultConstants{
 		
 		setContentView(R.layout.listimages);
 		context=this;
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			ACTIVITY_TYPE = extras.getString(INTENT_IMAGE_TYPE);
+		}
 		
 		intializeUI();
 		setListners();
@@ -59,10 +72,16 @@ public class ImageListActivity extends Activity implements IResultConstants{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long arg3) {
 				
-				Intent intent=new Intent();
-				intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName());
+				/*Intent intent=new Intent();
+				intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
+				intent.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
 				setResult(RESULT_NEW_IMAGE, intent);
-				finish();
+				finish();*/
+				
+				Intent intent=new Intent(context,PaintPanalActivity.class);
+				intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
+				intent.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
+				startActivity(intent);
 			}
 		});
 		
@@ -73,9 +92,24 @@ public class ImageListActivity extends Activity implements IResultConstants{
 	}
 	
 	private void setData() {
-		imagesGridList=AppPreferenceManager.getBrands(context);
 		
-		gridAdapter= new ImageGridAdapter(context, 0, imagesGridList, 2);
+		if (ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST)) {
+			imagesGridList=Utils.getSdCardFileList(context);
+			
+			if (imagesGridList.size()==0) {
+				AlertManager.shorttoastMessage(context, "No Saved Images..");
+				finish();
+			}
+			
+			
+		}
+		else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST)) {
+			
+			imagesGridList=AppPreferenceManager.getBrands(context);
+		}
+		
+		
+		gridAdapter= new ImageGridAdapter(context, 0, imagesGridList, 2,ACTIVITY_TYPE);
 		gridImages.setNumColumns(2);
 		
 		gridImages.setAdapter(gridAdapter);

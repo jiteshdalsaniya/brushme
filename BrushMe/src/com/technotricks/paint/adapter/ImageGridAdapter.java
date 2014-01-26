@@ -1,10 +1,12 @@
 package com.technotricks.paint.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.squareup.picasso.Picasso;
 import com.technotricks.paint.R;
-import com.technotricks.paint.constants.IAPPConstants;
+import com.technotricks.paint.constants.IDIRConstants;
+import com.technotricks.paint.constants.IIntentConstants;
 import com.technotricks.paint.manager.Utils;
 import com.technotricks.paint.model.ImagesGridModel;
 
@@ -25,17 +27,21 @@ import android.widget.Toast;
 
 import android.widget.RelativeLayout;
 
-public class ImageGridAdapter extends ArrayAdapter<ImagesGridModel> implements IAPPConstants{
+public class ImageGridAdapter extends ArrayAdapter<ImagesGridModel> implements IDIRConstants,IIntentConstants{
 
 	Context context;
 
 	private RelativeLayout.LayoutParams layoutSize;
+	
+	private String ACTIVITY_TYPE;
 
 	public ImageGridAdapter(Context context, int resource,
-			ArrayList<ImagesGridModel> objects, int numColumns) {
+			ArrayList<ImagesGridModel> objects, int numColumns, String ACTIVITY_TYPE) {
 		super(context, resource, objects);
 
 		this.context = context;
+		
+		this.ACTIVITY_TYPE=ACTIVITY_TYPE;
 
 		int width = (Utils.getDeviceWidth(context) / numColumns);
 		layoutSize = new RelativeLayout.LayoutParams(width, width);
@@ -66,7 +72,14 @@ public class ImageGridAdapter extends ArrayAdapter<ImagesGridModel> implements I
 		
 		holder.layout.setLayoutParams(layoutSize);
 
-		Picasso.with(context).load(ASSERT_FILE_DIR+rowItem.getImageName()).into(holder.imageIcon);
+		System.out.println("IMAGE PATH/ NAME== "+rowItem.getImageName_OR_Path());
+		if (ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST)) {
+			Picasso.with(context).load(new File(rowItem.getImageName_OR_Path())).into(holder.imageIcon);
+			
+		}
+		else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST)) {
+		Picasso.with(context).load(ASSERT_FILE_DIR+rowItem.getImageName_OR_Path()).into(holder.imageIcon);
+		}
 		//holder.imageIcon.setImageBitmap(Utils.getBitmapFromAsset(rowItem.getImageName(), context));
 		holder.btnMore.setOnClickListener(new OnClickListener() {
 

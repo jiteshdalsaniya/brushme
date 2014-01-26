@@ -47,6 +47,7 @@ import android.widget.ImageView.ScaleType;
 import com.squareup.picasso.Picasso;
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
+import com.technotricks.paint.constants.IIntentConstants;
 import com.technotricks.paint.constants.IResultConstants;
 import com.technotricks.paint.customclass.FloodFill;
 import com.technotricks.paint.manager.AppPreferenceManager;
@@ -55,7 +56,8 @@ import com.technotricks.paint.manager.ColorPickerDialog.OnColorChangedListener;
 import com.technotricks.paint.manager.Utils;
 
 public class PaintPanalActivity extends BaseActivity implements
-		OnClickListener, OnTouchListener ,ColorPickerDialog.OnColorChangedListener, IResultConstants{
+		OnClickListener, OnTouchListener,
+		ColorPickerDialog.OnColorChangedListener, IResultConstants,IIntentConstants {
 
 	private Context context;
 	private Intent i;
@@ -70,16 +72,20 @@ public class PaintPanalActivity extends BaseActivity implements
 	private Bitmap _alteredBitmap;
 	private Bitmap bitmap;
 
-	int originalImageOffsetX = 0, originalImageOffsetY = 0, color = 0,newColor = 0;
+	int originalImageOffsetX = 0, originalImageOffsetY = 0, color = 0,
+			newColor = 0;
+
+	// Save...
+
+	File imageFile, directory;
+	String mPath;
+	String dt;
 	
 	
+	//Type..
+	String ACTIVITY_TYPE="";
+	String imagePath="";
 	
-	//Save...
-	
-	 File imageFile, directory;
-	 String mPath;
-	 
-		String dt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,16 +95,23 @@ public class PaintPanalActivity extends BaseActivity implements
 		setContentView(R.layout.activity_paintpanal);
 
 		context = this;
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			ACTIVITY_TYPE = extras.getString(INTENT_IMAGE_TYPE);
+			imagePath= extras.getString(INTENT_IMAGE_TYPE);
+		}
+		
+		System.out.println("ACTIVITY_TYPE ="+ACTIVITY_TYPE);
+		
+		System.out.println("imagePath = "+imagePath);
 
 		setupAd();
 		intializeUI();
 		setListner();
-		
-		
-	
+
 		initializeCanvas();
-		
-		
+
 	}
 
 	private void intializeUI() {
@@ -109,13 +122,23 @@ public class PaintPanalActivity extends BaseActivity implements
 
 		imgPanel = (ImageView) findViewById(R.id.imgPanel);
 
-		 newColor = getResources().getColor(R.color.rose);
-		 mPaint=new Paint();
-		 
-		 
-		 imgPanel.setImageBitmap(Utils.getBitmapFromAsset(AppPreferenceManager.getBrand(context, 0).getImageName(),context));
-		 
+		newColor = getResources().getColor(R.color.rose);
+		mPaint = new Paint();
+
+		if (ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST)) {
+			imgPanel.setImageBitmap(Utils.getfileToBitmap(imagePath));
+		}
+		else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST)) {
+			imgPanel.setImageBitmap(Utils.getBitmapFromAsset(imagePath, context));
+			
+			
+		}
+		else{
+			imgPanel.setImageBitmap(Utils.getBitmapFromAsset(AppPreferenceManager
+					.getBrand(context, 0).getImageName_OR_Path(), context));
+		}
 		
+
 	}
 
 	private void initializeCanvas() {
@@ -123,6 +146,7 @@ public class PaintPanalActivity extends BaseActivity implements
 		BitmapDrawable drawable = (BitmapDrawable) imgPanel.getDrawable();
 		Bitmap bmp = drawable.getBitmap();
 		try {
+
 			_alteredBitmap = Bitmap.createBitmap(bmp.getWidth(),
 					bmp.getHeight(), Bitmap.Config.ARGB_8888);
 		} catch (Exception e) {
@@ -136,12 +160,8 @@ public class PaintPanalActivity extends BaseActivity implements
 
 		imgPanel.setImageBitmap(_alteredBitmap);
 		imgPanel.setOnTouchListener(this);
-		
-		
 
 	}
-	
-	
 
 	private void setListner() {
 		btnColorPicker.setOnClickListener(this);
@@ -150,112 +170,74 @@ public class PaintPanalActivity extends BaseActivity implements
 		btnGrey.setOnClickListener(this);
 
 	}
-	
-	 @Override
-	    public boolean onCreateOptionsMenu(Menu menu) {
-	        MenuInflater inflater = getMenuInflater();
-	        inflater.inflate(R.menu.paint, menu);
-	 
-	        return super.onCreateOptionsMenu(menu);
-	    }
-	 
-	 @Override
-	  public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	    
-	    case R.id.action_new:
-	    
-	    	i=new Intent(context,ImageListActivity.class);
-	    	startActivityForResult(i, RESULT_NEW_IMAGE);
-	    	
-	    	  break;
-	    case R.id.action_save:
-	    	
-	    	//hRefresh.sendEmptyMessage(2);
-	    	
-	    	new Thread() 
-			{
-				public void run() 
-				{
-					try 
-					{
-					// This is just a tmp sleep so that we can emulate
-					// something loading
-					Thread.sleep(1000);
-					// Use this handler so than you can update the UI from a
-					// thread
-					hRefresh.sendEmptyMessage(2);
-					} catch (Exception e) {
-										}
-				}
-			}.start();
-	     
-	      break;
-	    case R.id.action_setasWall:
-	    	
-	    	Bitmap bm;
-	        Boolean result;
-	        FileOutputStream fos;
-	    	 Intent i=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-             startActivityForResult(i, 100);
-             imgPanel.setDrawingCacheEnabled(true);
-             bm = imgPanel.getDrawingCache();
 
-             try {
-                 fos = new FileOutputStream("sdcard/image.jpg");
-                 result=bm.compress(CompressFormat.JPEG, 75, fos);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.paint, menu);
 
-                 fos.flush();
-                 fos.close();
-             } catch (FileNotFoundException e) {
-                 // TODO Auto-generated catch block
+		return super.onCreateOptionsMenu(menu);
+	}
 
-                 e.printStackTrace();
-             } catch (IOException e) {
-                 // TODO Auto-generated catch block
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
 
-                 e.printStackTrace();
-             }
+		case R.id.action_new:
 
-	     
-	      break;
-	      
-	    case R.id.action_share:
-	    	
-	    	hRefresh.sendEmptyMessage(2);
-		     
-		      break;
+			i = new Intent(context, ImageListActivity.class);
+			
+			i.putExtra(INTENT_IMAGE_TYPE, INTENT_IMAGE_LIST);
+			startActivityForResult(i, RESULT_NEW_IMAGE);
 
+			break;
+		case R.id.action_save:
 
-	    default:
-	      break;
-	    }
+			hRefresh.sendEmptyMessage(2);
 
-	    return true;
-	  } 
+			break;
+		case R.id.action_setasWall:
+
+			hRefresh.sendEmptyMessage(1);
+
+			break;
+
+		case R.id.action_share:
+
+			hRefresh.sendEmptyMessage(4);
+
+			break;
+
+		default:
+			break;
+		}
+
+		return true;
+	}
 
 	@Override
 	public void onClick(View v) {
 		if (v == btnColorPicker) {
-			
-			//newColor=getResources().getColor(R.color.red);
-			
-			//new ColorPicker(context, this, "", Color.BLACK, Color.WHITE).show();
-		//	new ColorPickerDialog(context, this, "", Color.BLACK, Color.WHITE).show();
-			
+
+			// newColor=getResources().getColor(R.color.red);
+
+			// new ColorPicker(context, this, "", Color.BLACK,
+			// Color.WHITE).show();
+			// new ColorPickerDialog(context, this, "", Color.BLACK,
+			// Color.WHITE).show();
+
 			mPaint.setColor(Color.BLUE);
 			new ColorPickerDialog(context, this, mPaint.getColor()).show();
-			
 
 		} else if (v == btnRose) {
-			
-			newColor=getResources().getColor(R.color.rose);
+
+			newColor = getResources().getColor(R.color.rose);
 
 		} else if (v == btnBlue) {
-			newColor=getResources().getColor(R.color.blue);
+			newColor = getResources().getColor(R.color.blue);
 
 		} else if (v == btnGrey) {
-			newColor=getResources().getColor(R.color.grey);
+			newColor = getResources().getColor(R.color.grey);
 
 		}
 
@@ -343,11 +325,23 @@ public class PaintPanalActivity extends BaseActivity implements
 
 	Handler hRefresh = new Handler() {
 		public void handleMessage(Message msg) {
+			String path;
 			switch (msg.what) {
-			
+
+			case 1:
+				try {
+					path = Utils.saveImageView(imgPanel, context);
+					Utils.setAsWallpaper(context, path);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				break;
+
 			case 2:
 				try {
-					Utils.saveDrawable(imgPanel, context);
+					Utils.saveImageViewToSdCard(imgPanel, context);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -355,12 +349,23 @@ public class PaintPanalActivity extends BaseActivity implements
 				break;
 
 			case 3:
-				
+
 				FloodFill floodfill = new FloodFill(bitmap, color, newColor);
 				floodfill.fill(originalImageOffsetX, originalImageOffsetY);
 
 				imgPanel.invalidate();
 
+				break;
+
+			case 4:
+				try {
+					path = Utils.saveImageView(imgPanel, context);
+
+					Utils.share(context, path);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			default:
 				break;
@@ -371,63 +376,28 @@ public class PaintPanalActivity extends BaseActivity implements
 	@Override
 	public void colorChanged(int color) {
 		// TODO Auto-generated method stub
-		
-		newColor=color;
-		
+
+		newColor = color;
+
 	}
+
 	
-	public void taptoshare(ImageView imageView)
-	{  
-	    View content = imageView;
-	    content.setDrawingCacheEnabled(true);
-	        Bitmap bitmap = content.getDrawingCache();
-	        
-	        File root = Environment.getExternalStorageDirectory();
-	        File file = new File(root.getAbsolutePath() + "/BBB/image.jpg");
-	     //   File file = new File("/BRESH/Camera/image.jpg");
-	        try 
-	        {
-	            file.createNewFile();
-	            FileOutputStream ostream = new FileOutputStream(file);
-	            bitmap.compress(CompressFormat.JPEG, 100, ostream);
-	            ostream.close();
-	        } 
-	        catch (Exception e) 
-	        {
-	            e.printStackTrace();
-	        }
-
-
-	    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-	    Uri phototUri = Uri.parse("/DCIM/Camera/image.jpg");
-	    shareIntent.setData(phototUri);
-	    shareIntent.setType("image/*");
-	    shareIntent.putExtra(Intent.EXTRA_STREAM, phototUri);
-	    startActivity(Intent.createChooser(shareIntent, "Share Via"));
-
-	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		
-		
-		if ((requestCode == RESULT_NEW_IMAGE)&& (resultCode == RESULT_NEW_IMAGE)) {
-			
-			
-			String imageName = data.getStringExtra(RESULT_NEW_STRING);
-			
-			
-			 imgPanel.setImageBitmap(Utils.getBitmapFromAsset(imageName,context));
-			
-			 initializeCanvas();
-		}
-	}   
 
-	
-	
-	
-	
+		if ((requestCode == RESULT_NEW_IMAGE)
+				&& (resultCode == RESULT_NEW_IMAGE)) {
+
+			String imageName = data.getStringExtra(RESULT_NEW_STRING);
+
+			imgPanel.setImageBitmap(Utils
+					.getBitmapFromAsset(imageName, context));
+
+			initializeCanvas();
+		}
+	}
 
 }
