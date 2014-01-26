@@ -75,19 +75,29 @@ public class ImageListActivity extends Activity implements IResultConstants,IInt
 				
 				if (ACTIVITY_TYPE.equals(INTENT_IMAGE_RESULT_BACK)) {
 					
-					Intent intent=new Intent();
-					intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
-				//	intent.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
-					setResult(RESULT_NEW_IMAGE, intent);
+					i=new Intent();
+					i.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
+			
+					setResult(RESULT_NEW_IMAGE, i);
 					finish();
 					
 				}
-				else if ((ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST))||(ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST))){
-					Intent intent=new Intent(context,PaintPanalActivity.class);
-					intent.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
-					intent.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
-					startActivity(intent);
+				else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST)){
+					i=new Intent(context,PaintPanalActivity.class);
+					i.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
+					i.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
+					startActivity(i);
 					finish();
+				}
+				else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST)) {
+					
+					i=new Intent(context,FullScreenActivity.class);
+					i.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
+					i.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
+					startActivity(i);
+					finish();
+					
+					
 				}
 			
 				

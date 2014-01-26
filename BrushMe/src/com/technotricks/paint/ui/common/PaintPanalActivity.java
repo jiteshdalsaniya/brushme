@@ -2,18 +2,10 @@ package com.technotricks.paint.ui.common;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Calendar;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -365,7 +357,7 @@ public class PaintPanalActivity extends BaseActivity implements
 	public void loadImage(String path) {
 		
 		System.out.println("IMAGE PATH== "+path);
-		imageLoader.displayImage("http://wedrawyourface.com/assets/img/devon_vector_bw_avatar.png", imgPanel, new ImageLoadingListener() {
+		imageLoader.displayImage(path, imgPanel, new ImageLoadingListener() {
 
 			@Override
 			public void onLoadingStarted(String arg0, View arg1) {
@@ -382,6 +374,7 @@ public class PaintPanalActivity extends BaseActivity implements
 			@Override
 			public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
 
+							
 				initializeCanvas();
 
 			}
