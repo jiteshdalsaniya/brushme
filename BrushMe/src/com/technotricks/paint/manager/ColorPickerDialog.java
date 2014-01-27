@@ -41,11 +41,23 @@ public class ColorPickerDialog extends Dialog {
                 0xFFFFFF00, 0xFFFF0000
             };*/
             
-            mColors = new int[] {
+           /* mColors = new int[] {
             		0xFFF2F5A9,
                     0xFFFF0000, 0xFFFF00FF, 0xFF0000FF, 0xFF00FFFF, 0xFF00FF00,
                     0xFFFFFF00, 0xFFFF0000,0xFFF2F5A9
+                };*/
+            
+            
+            
+    		/*{ "1C4587", "285BAC", "3C78D8", "6D9EEB", "A4C2F4", "C9DAF8" },
+    		{ "41236D", "653E9B", "8E63CE", "B694E8", "D0BCF1", "E4D7F5" },
+    		{ "83334C", "B65775", "E07798", "F7A7C0", "FBC8D9", "FCDEE8" },
+    		{ "000000", "434343", "666666", "999999", "CCCCCC", "EFEFEF" }*/ 
+            
+            mColors = new int[] {
+            		0xFFFE0606,0xFFFE06D9,0xFF2F06FE,0xFF06FEFE,0xFF06FE2B,0xFFF1FE06,0xFFFE4806,0xFFCB8A72,0xFFFE0606
                 };
+            
             Shader s = new SweepGradient(0, 0, mColors, null);
  
             mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
