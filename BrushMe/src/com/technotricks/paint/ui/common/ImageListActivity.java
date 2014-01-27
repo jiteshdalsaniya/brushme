@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.technotricks.paint.R;
 import com.technotricks.paint.adapter.ImageGridAdapter;
+import com.technotricks.paint.baseactivity.BaseActivity;
 import com.technotricks.paint.constants.IIntentConstants;
 import com.technotricks.paint.constants.IResultConstants;
 import com.technotricks.paint.manager.AlertManager;
@@ -21,7 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
 
-public class ImageListActivity extends Activity implements IResultConstants,IIntentConstants{
+public class ImageListActivity extends BaseActivity implements IResultConstants,IIntentConstants{
 	
 	private Context context;
 
@@ -91,11 +92,13 @@ public class ImageListActivity extends Activity implements IResultConstants,IInt
 				}
 				else if (ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST)) {
 					
-					i=new Intent(context,FullScreenActivity.class);
-					i.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
-					i.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
-					startActivity(i);
-					finish();
+					i=new Intent(context,CoverflowActivity.class);
+					//i.putExtra(RESULT_NEW_STRING, imagesGridList.get(pos).getImageName_OR_Path());
+					//i.putExtra(INTENT_IMAGE_TYPE, ACTIVITY_TYPE);
+					
+					i.putExtra(RESULT_COVERFLOW_VALUE, imagesGridList);
+					//startActivity(i);
+					//finish();
 					
 					
 				}

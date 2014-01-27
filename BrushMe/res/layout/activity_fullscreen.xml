@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    >
+    
+    <!-- <RelativeLayout
+         android:id="@+id/relAd"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:src="@drawable/cindrella5" />
+         /> -->
+        
+        
+    
+
+   <!--  <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_below="@+id/relAd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/cindrella5" 
+        android:layout_above="@+id/coverflowReflect"
+        /> -->
+    
+   <!--  coverflow:imageHeight="200dip"
+           coverflow:imageWidth="150dip" -->
+    <com.technotricks.paint.customclass.coverflow.CoverFlow
+        xmlns:coverflow="http://schemas.android.com/apk/res/com.technotricks.paint"
+        android:id="@+id/coverflowReflect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dip"
+        
+        coverflow:imageReflectionRatio="0.2"
+     
+        coverflow:reflectionGap="2dip"
+        coverflow:withReflection="true" 
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"/> 
+        
+        
+        
 
 </RelativeLayout>

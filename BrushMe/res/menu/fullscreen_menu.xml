@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_setasWall"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:title="@string/action_wall"/>
+    
+    
+    
+    <item
+        android:id="@+id/action_share"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/action_share"
+        />
+    
+     <item
+        android:id="@+id/action_new"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/action_new"
+        />
+       <item
+        android:id="@+id/action_save"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/action_save"
+        />
+  
+
+     
+</menu>
+

@@ -363,5 +363,23 @@ public class Utils implements IDIRConstants {
 
 	        return blackAndWhiteBitmap;
 	    }
+	 
+	 
+	 public static int calculateSize(Context context)
+	 {
+	     // GET SCREEN SIZE
+	     Display display = ((Activity) context).getWindowManager().getDefaultDisplay();
+
+	     // HEIGHT
+	     int height = display.getHeight();
+	     long roundedHeightSize = Math.round((0.2132*height)+27.177);
+
+	     //WIDTH
+	     int width = display.getWidth();
+	     long roundedWidthSize = Math.round((0.4264*width)-6.9355);
+
+
+	     return (int)((roundedHeightSize+roundedWidthSize));
+	 }
 
 }
