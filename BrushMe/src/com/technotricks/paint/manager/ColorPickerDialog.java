@@ -64,7 +64,7 @@ public class ColorPickerDialog extends Dialog {
         	
             mPaint.setShader(s);
             mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setStrokeWidth(50);
+            mPaint.setStrokeWidth(100);
  
             mCenterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mCenterPaint.setColor(color);
