@@ -9,15 +9,35 @@ import com.larswerkman.holocolorpicker.ValueBar;
 import com.technotricks.paint.R;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ColorPick extends Activity {
+public class ColorPick extends Dialog {
 	
+	 public interface OnColorCodeChangedListener {
+	        void colorChanged(int color);
+	    }
+	 
+	  private OnColorCodeChangedListener mListener;
+	  private int mInitialColor;
 	
+	Context context;
+	public ColorPick(Context context,
+			OnColorCodeChangedListener listener,
+            int initialColor) {
+		super(context);
+		
+		this.context= context;
+		 mListener = listener;
+	        mInitialColor = initialColor;
+	
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -36,20 +56,32 @@ public class ColorPick extends Activity {
 		picker.getColor();
 
 		//To set the old selected color u can do it like this
-		picker.setOldCenterColor(picker.getColor());
+		picker.setOldCenterColor(mInitialColor);
+		
+		
 		// adds listener to the colorpicker which is implemented
 		//in the activity
 		picker.setOnColorChangedListener(new OnColorChangedListener() {
 			
 			@Override
 			public void onColorChanged(int color) {
+				
+				
+				
+				
+			}
+
+			@Override
+			public void onCenterButtonClick(int color) {
 				textViewColor.setBackgroundColor(color);
+				mListener.colorChanged(color);
+				dismiss();
 				
 			}
 		});
 		
-		picker.setColor(getResources().getColor(R.color.blue));
-		picker.setOldCenterColor(getResources().getColor(R.color.red));
+		picker.setColor(context.getResources().getColor(R.color.blue));
+		picker.setOldCenterColor(context.getResources().getColor(R.color.red));
 		
 	
 		

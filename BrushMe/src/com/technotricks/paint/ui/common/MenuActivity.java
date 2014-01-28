@@ -2,6 +2,8 @@ package com.technotricks.paint.ui.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,8 +12,10 @@ import android.widget.Button;
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
 import com.technotricks.paint.constants.IIntentConstants;
+import com.technotricks.paint.manager.FontManager;
 import com.technotricks.paint.manager.SelectorManager;
 import com.technotricks.paint.manager.Utils;
+import com.technotricks.paint.ui.common.ColorPick.OnColorCodeChangedListener;
 
 public class MenuActivity extends BaseActivity implements OnClickListener,
 		IIntentConstants {
@@ -67,6 +71,13 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 						R.drawable.button5,
 						R.drawable.button5_press));
 		
+		
+		FontManager.setHoloFont(btnStart, context);
+		FontManager.setHoloFont(btnSavedImages, context);
+		FontManager.setHoloFont(btnMoreImages, context);
+		FontManager.setHoloFont(btnMoreApps, context);
+		FontManager.setHoloFont(btnSetting, context);
+		
 	}
 
 	private void intializeUI() {
@@ -113,9 +124,8 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 			startActivity(i);
 		}
 		 else if (v == btnSetting) {
-				i = new Intent(context, ColorPick.class);
-
-				startActivity(i);
+			 
+			
 			}
 
 	}

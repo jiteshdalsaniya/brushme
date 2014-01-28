@@ -35,10 +35,10 @@ import com.technotricks.paint.customclass.FloodFill;
 import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.manager.ColorPickerDialog;
 import com.technotricks.paint.manager.Utils;
+import com.technotricks.paint.ui.common.ColorPick.OnColorCodeChangedListener;
 
 public class PaintPanalActivity extends BaseActivity implements
-		OnClickListener, OnTouchListener,
-		ColorPickerDialog.OnColorChangedListener, IResultConstants,
+		OnClickListener, OnTouchListener, IResultConstants,
 		IIntentConstants {
 
 	private Context context;
@@ -199,8 +199,16 @@ public class PaintPanalActivity extends BaseActivity implements
 	public void onClick(View v) {
 		if (v == btnColorPicker) {
 
-			mPaint.setColor(Color.BLUE);
-			new ColorPickerDialog(context, this, mPaint.getColor()).show();
+			Paint mPaint = new Paint();
+			mPaint.setColor(newColor);
+			new ColorPick(context, new OnColorCodeChangedListener() {
+				
+				@Override
+				public void colorChanged(int color) {
+					System.out.println("Color Code=="+color);
+					newColor = color;
+				}
+			}, mPaint.getColor()).show();
 
 		} else if (v == btnRose) {
 
@@ -346,13 +354,7 @@ public class PaintPanalActivity extends BaseActivity implements
 		}
 	};
 
-	@Override
-	public void colorChanged(int color) {
-		// TODO Auto-generated method stub
-
-		newColor = color;
-
-	}
+	
 
 	public void loadImage(String path) {
 		
