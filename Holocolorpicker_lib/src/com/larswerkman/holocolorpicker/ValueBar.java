@@ -166,7 +166,7 @@ public class ValueBar extends View {
 		mBarPointerPosition = mBarPointerHaloRadius;
 
 		mBarPointerHaloPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mBarPointerHaloPaint.setColor(Color.BLACK);
+		mBarPointerHaloPaint.setColor(Color.BLUE);
 		mBarPointerHaloPaint.setAlpha(0x50);
 
 		mBarPointerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -192,7 +192,8 @@ public class ValueBar extends View {
 		} else {
 			width = intrinsicSize;
 		}
-
+//Edit
+		//mBarLength = width - (mBarPointerHaloRadius * 3);
 		mBarLength = width - (mBarPointerHaloRadius * 2);
 		setMeasuredDimension((mBarLength + (mBarPointerHaloRadius * 2)),
 				(mBarPointerHaloRadius * 2));
