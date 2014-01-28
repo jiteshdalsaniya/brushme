@@ -36,6 +36,9 @@
           <activity android:name=".ui.common.PaintPanalActivity"  android:screenOrientation="portrait"/>
           
           <activity android:name=".ui.common.CoverflowActivity"  android:screenOrientation="portrait"/>
+          <activity android:name=".ui.common.ColorPick"  android:screenOrientation="portrait"/>
+          
+          
           
           
         

@@ -10,7 +10,10 @@ import com.technotricks.paint.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ColorPick extends Activity {
 	
@@ -24,14 +27,7 @@ public class ColorPick extends Activity {
 		final TextView textViewColor=(TextView)findViewById(R.id.textView1);
 		
 		ColorPicker picker = (ColorPicker) findViewById(R.id.picker);
-		SVBar svBar = (SVBar) findViewById(R.id.svbar);
-		OpacityBar opacityBar = (OpacityBar) findViewById(R.id.opacitybar);
-		SaturationBar saturationBar = (SaturationBar) findViewById(R.id.saturationbar);
 		ValueBar valueBar = (ValueBar) findViewById(R.id.valuebar);
-
-		picker.addSVBar(svBar);
-		picker.addOpacityBar(opacityBar);
-		picker.addSaturationBar(saturationBar);
 		picker.addValueBar(valueBar);
 		
 		
@@ -51,6 +47,11 @@ public class ColorPick extends Activity {
 				
 			}
 		});
+		
+		picker.setColor(getResources().getColor(R.color.blue));
+		picker.setOldCenterColor(getResources().getColor(R.color.red));
+		
+	
 		
 		
 		
