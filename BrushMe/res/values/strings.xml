@@ -15,5 +15,13 @@
     <string name="action_save">Save</string>
     
      <string name="action_new">New</string>
+     
+     
+     
+      <string-array name="tables">
+        <item>Array Item One</item>
+        <item>Array Item Two</item>
+        <item>Array Item Three</item>
+    </string-array>
 
 </resources>
