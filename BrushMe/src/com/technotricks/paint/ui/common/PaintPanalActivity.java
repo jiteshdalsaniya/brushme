@@ -212,7 +212,7 @@ public class PaintPanalActivity extends BaseActivity implements
 
 		} else if (v == btnRose) {
 
-			newColor = getResources().getColor(R.color.rose);
+			newColor = getResources().getColor(android.R.color.white);
 
 		} else if (v == btnBlue) {
 			newColor = getResources().getColor(R.color.blue);
