@@ -26,15 +26,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-             >
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnEraser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/eraser" />
 
             <Button
                 android:id="@+id/btnColorPicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/color_red" />
+                android:background="@drawable/color_picker" />
 
             <Button
                 android:id="@+id/btnPurple"
@@ -43,68 +49,49 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/color_purple" />
 
-          <Button
+            <Button
                 android:id="@+id/btnGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/color_green" />
 
             <Button
                 android:id="@+id/btnYellow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/color_yellow" />
 
             <Button
                 android:id="@+id/btnRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/color_red" />
 
             <Button
-                android:id="@+id/btnRed1"
+                android:id="@+id/btnRose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
-                android:background="@drawable/color_red" />
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/color_rose" />
 
             <Button
-                android:id="@+id/btnRed2"
+                android:id="@+id/btnBlue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
-                android:background="@drawable/color_red" />
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/color_blue" />
 
             <Button
-                android:id="@+id/btnRed3"
+                android:id="@+id/btnOrange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
-                android:background="@drawable/color_red" />
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/color_orange" />
 
-            <Button
-                android:id="@+id/btnRed4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
-                android:background="@drawable/color_red" />
-
-            <Button
-                android:id="@+id/btnRed5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
-                android:background="@drawable/color_red" />
-
-            <Button
-                android:id="@+id/btnRed6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
-                android:background="@drawable/color_red" /> 
+            
         </LinearLayout>
     </HorizontalScrollView>
 
