@@ -10,6 +10,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
+import android.widget.Toast;
 
 public class MyApplication extends Application{
 	
@@ -26,6 +27,8 @@ public class MyApplication extends Application{
       super.onCreate();
 
       initImageLoader(getApplicationContext());
+      
+      
 		
 	}
 	
@@ -46,5 +49,12 @@ public class MyApplication extends Application{
          // Initialize ImageLoader with configuration.
          ImageLoader.getInstance().init(config);
  }
+	 
+	 
+	
+	 
+	 
+	 
+ 
 
 }

@@ -11,7 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-public class Splash extends BaseActivity {
+public class Splash extends Activity {
 
 	private Context context;
 	private Intent i;
@@ -26,7 +26,7 @@ public class Splash extends BaseActivity {
 
 		context = this;
 
-		setupAd();
+		
 		intializeUI();
 	}
 

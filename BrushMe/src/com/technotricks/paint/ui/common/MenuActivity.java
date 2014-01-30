@@ -12,11 +12,14 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ToggleButton;
 
+
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
 import com.technotricks.paint.constants.IIntentConstants;
+import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.manager.FontManager;
 import com.technotricks.paint.manager.SelectorManager;
+import com.technotricks.paint.manager.SoundManager;
 import com.technotricks.paint.manager.Utils;
 import com.technotricks.paint.ui.common.ColorPick.OnColorCodeChangedListener;
 
@@ -47,6 +50,19 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 		selectionManager();
 		setListner();
 
+		if(AppPreferenceManager.getSoundState(context)){
+			
+			SoundManager.instance().startBackgroundMusic();
+		}
+		
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		SoundManager.instance().stopBackgroundMusic();
+		
 	}
 
 	private void selectionManager() {
@@ -78,7 +94,7 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 						R.drawable.button3,
 						R.drawable.button3_press));
 		
-		SelectorManager.setBackground(tglSound, SelectorManager.getToggleButtonSelection(context, R.drawable.sound_off, R.drawable.sound_on));
+		SelectorManager.setBackground(tglSound, SelectorManager.getToggleButtonSelection(context, R.drawable.sound_on, R.drawable.sound_off));
 	
 		
 		
@@ -100,6 +116,10 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 		btnSetting = (Button) findViewById(R.id.btnSetting);
 		
 		tglSound=(ToggleButton)findViewById(R.id.tglSound);
+		
+		tglSound.setChecked(AppPreferenceManager.getSoundState(context));
+		
+		
 	}
 
 	private void setListner() {
@@ -113,12 +133,14 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 			
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
+				
+				AppPreferenceManager.saveSoundState(context, isChecked);
 
 				if(isChecked){
-					
+					SoundManager.instance().startBackgroundMusic();
 				}
 				else{
-					
+					SoundManager.instance().stopBackgroundMusic();
 				}
 				
 				

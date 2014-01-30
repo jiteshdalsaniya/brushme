@@ -18,6 +18,7 @@ import com.revmob.ads.link.RevMobLink;
 import com.revmob.ads.popup.RevMobPopup;
 
 import com.revmob.internal.RMLog;
+import com.technotricks.paint.manager.SoundManager;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -101,6 +102,7 @@ public class BaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		SoundManager.instance().load(this);
 		
 	
 		chartBoostSetup();
@@ -125,8 +127,12 @@ public class BaseActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		this.cb.onDestroy(this);
+		
+		
 	}
 
+	
+	
 	public void setupAd(/*ViewGroup top,ViewGroup bottom*/) {
 
 		currentActivity = this;

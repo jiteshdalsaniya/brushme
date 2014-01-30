@@ -37,6 +37,7 @@ import com.technotricks.paint.constants.IResultConstants;
 import com.technotricks.paint.customclass.FloodFill;
 import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.manager.ColorPickerDialog;
+import com.technotricks.paint.manager.SoundManager;
 import com.technotricks.paint.manager.Utils;
 import com.technotricks.paint.ui.common.ColorPick.OnColorCodeChangedListener;
 
@@ -97,6 +98,14 @@ public class PaintPanalActivity extends BaseActivity implements
 		// initializeCanvas();
 
 	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+		//SoundManager.instance().stopBackgroundMusic();
+	}
 
 	private void intializeUI() {
 		btnColorPicker = (Button) findViewById(R.id.btnColorPicker);
@@ -128,6 +137,10 @@ public class PaintPanalActivity extends BaseActivity implements
 			loadImage(AppPreferenceManager.getImage(context, 0)
 					.getImageName_OR_Path());
 		}
+		
+		
+		
+		
 
 	}
 
