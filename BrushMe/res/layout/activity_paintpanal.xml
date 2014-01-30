@@ -2,56 +2,110 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-   
-    
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout1"
+        android:layout_below="@+id/horizontalScrollColor"
         android:background="@drawable/popup_bg" >
 
         <ImageView
             android:id="@+id/imgPanel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollColor"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@drawable/bottom_bg"
+        android:background="@color/blue"
         android:padding="5dp" >
 
-        <Button
-            android:id="@+id/btnColorPicker"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/colorpicker_normal" />
+            android:orientation="horizontal"
+             >
 
-        <Button
-            android:id="@+id/btnBlue"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/blue" />
+            <Button
+                android:id="@+id/btnColorPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/color_red" />
 
-        <Button
-            android:id="@+id/btnRose"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/rose" />
+            <Button
+                android:id="@+id/btnPurple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/color_purple" />
 
-        <Button
-            android:id="@+id/btnGrey"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/grey" />
-    </LinearLayout>
-    
-    
+          <Button
+                android:id="@+id/btnGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_green" />
+
+            <Button
+                android:id="@+id/btnYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_yellow" />
+
+            <Button
+                android:id="@+id/btnRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_red" />
+
+            <Button
+                android:id="@+id/btnRed1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_red" />
+
+            <Button
+                android:id="@+id/btnRed2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_red" />
+
+            <Button
+                android:id="@+id/btnRed3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_red" />
+
+            <Button
+                android:id="@+id/btnRed4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_red" />
+
+            <Button
+                android:id="@+id/btnRed5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_red" />
+
+            <Button
+                android:id="@+id/btnRed6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                android:background="@drawable/color_red" /> 
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </RelativeLayout>

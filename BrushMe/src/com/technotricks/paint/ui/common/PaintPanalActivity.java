@@ -24,7 +24,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.technotricks.paint.R;
@@ -38,13 +41,13 @@ import com.technotricks.paint.manager.Utils;
 import com.technotricks.paint.ui.common.ColorPick.OnColorCodeChangedListener;
 
 public class PaintPanalActivity extends BaseActivity implements
-		OnClickListener, OnTouchListener, IResultConstants,
-		IIntentConstants {
+		OnClickListener, OnTouchListener, IResultConstants, IIntentConstants {
 
 	private Context context;
 	private Intent i;
-	private Button btnColorPicker, btnBlue, btnGrey, btnRose;
+	private Button btnColorPicker, btnPurple, btnGreen, btnYellow, btnRed;
 	private ImageView imgPanel;
+	private HorizontalScrollView horizontalScrollColor;
 
 	private Matrix matrix = new Matrix();
 	private Matrix savedMatrix = new Matrix();
@@ -96,27 +99,29 @@ public class PaintPanalActivity extends BaseActivity implements
 
 	private void intializeUI() {
 		btnColorPicker = (Button) findViewById(R.id.btnColorPicker);
-		btnBlue = (Button) findViewById(R.id.btnBlue);
-		btnGrey = (Button) findViewById(R.id.btnGrey);
-		btnRose = (Button) findViewById(R.id.btnRose);
+		btnPurple = (Button) findViewById(R.id.btnPurple);
+		btnGreen = (Button) findViewById(R.id.btnGreen);
+		btnYellow = (Button) findViewById(R.id.btnYellow);
+		btnRed = (Button) findViewById(R.id.btnRed);
 
 		imgPanel = (ImageView) findViewById(R.id.imgPanel);
+		horizontalScrollColor = (HorizontalScrollView) findViewById(R.id.horizontalScrollColor);
+
+		horizontalScrollColor.setVerticalScrollBarEnabled(false);
+		horizontalScrollColor.setHorizontalScrollBarEnabled(false);
 
 		newColor = getResources().getColor(R.color.rose);
 		mPaint = new Paint();
 
-	
+		if ((ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST))
+				|| (ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST))) {
 
-		if ((ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST))||(ACTIVITY_TYPE.equals(INTENT_IMAGE_LIST))) {
-			
 			loadImage(imagePath);
-			
+
 		} else {
 			loadImage(AppPreferenceManager.getImage(context, 0)
 					.getImageName_OR_Path());
 		}
-
-	
 
 	}
 
@@ -144,9 +149,10 @@ public class PaintPanalActivity extends BaseActivity implements
 
 	private void setListner() {
 		btnColorPicker.setOnClickListener(this);
-		btnRose.setOnClickListener(this);
-		btnBlue.setOnClickListener(this);
-		btnGrey.setOnClickListener(this);
+		btnPurple.setOnClickListener(this);
+		btnGreen.setOnClickListener(this);
+		btnYellow.setOnClickListener(this);
+		btnRed.setOnClickListener(this);
 
 	}
 
@@ -202,25 +208,34 @@ public class PaintPanalActivity extends BaseActivity implements
 			Paint mPaint = new Paint();
 			mPaint.setColor(newColor);
 			new ColorPick(context, new OnColorCodeChangedListener() {
-				
+
 				@Override
 				public void colorChanged(int color) {
-					System.out.println("Color Code=="+color);
+					System.out.println("Color Code==" + color);
 					newColor = color;
+
+					horizontalScrollColor.setBackgroundColor(newColor);
 				}
 			}, mPaint.getColor()).show();
 
-		} else if (v == btnRose) {
+		} else if (v == btnPurple) {
 
-			newColor = getResources().getColor(android.R.color.white);
+			newColor = getResources().getColor(R.color.purple);
 
-		} else if (v == btnBlue) {
-			newColor = getResources().getColor(R.color.blue);
+		} else if (v == btnGreen) {
+			newColor = getResources().getColor(R.color.green);
 
-		} else if (v == btnGrey) {
-			newColor = getResources().getColor(R.color.grey);
+		} else if (v == btnYellow) {
+			newColor = getResources().getColor(R.color.yellow);
 
 		}
+
+		else if (v == btnRed) {
+			newColor = getResources().getColor(R.color.red);
+
+		}
+
+		horizontalScrollColor.setBackgroundColor(newColor);
 
 	}
 
@@ -354,11 +369,9 @@ public class PaintPanalActivity extends BaseActivity implements
 		}
 	};
 
-	
-
 	public void loadImage(String path) {
-		
-		System.out.println("IMAGE PATH== "+path);
+
+		System.out.println("IMAGE PATH== " + path);
 		imageLoader.displayImage(path, imgPanel, new ImageLoadingListener() {
 
 			@Override
@@ -376,7 +389,6 @@ public class PaintPanalActivity extends BaseActivity implements
 			@Override
 			public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
 
-							
 				initializeCanvas();
 
 			}
