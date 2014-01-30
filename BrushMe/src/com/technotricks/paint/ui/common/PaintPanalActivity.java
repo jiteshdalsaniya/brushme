@@ -60,7 +60,7 @@ public class PaintPanalActivity extends BaseActivity implements
 	private Bitmap bitmap;
 
 	int originalImageOffsetX = 0, originalImageOffsetY = 0, color = 0,
-			newColor = 0;
+			newColor =0;
 
 	// Save...
 
@@ -120,12 +120,15 @@ public class PaintPanalActivity extends BaseActivity implements
 		btnOrange= (Button) findViewById(R.id.btnOrange);
 		
 		imgPanel = (ImageView) findViewById(R.id.imgPanel);
+		
+		newColor = getResources().getColor(R.color.purple);
+		
 		horizontalScrollColor = (HorizontalScrollView) findViewById(R.id.horizontalScrollColor);
-
+		horizontalScrollColor.setBackgroundColor(newColor);
 		horizontalScrollColor.setVerticalScrollBarEnabled(false);
 		horizontalScrollColor.setHorizontalScrollBarEnabled(false);
 
-		newColor = getResources().getColor(R.color.rose);
+		
 		mPaint = new Paint();
 
 		if ((ACTIVITY_TYPE.equals(INTENT_IMAGE_SAVE_LIST))
@@ -251,24 +254,24 @@ public class PaintPanalActivity extends BaseActivity implements
 
 			newColor = getResources().getColor(R.color.purple);
 			
-			horizontalScrollColor.setBackgroundColor(newColor);
+			
 
 		} else if (v == btnGreen) {
 			newColor = getResources().getColor(R.color.green);
 			
-			horizontalScrollColor.setBackgroundColor(newColor);
+			
 
 		} else if (v == btnYellow) {
 			newColor = getResources().getColor(R.color.yellow);
 			
-			horizontalScrollColor.setBackgroundColor(newColor);
+			
 
 		}
 
 		else if (v == btnRed) {
 			newColor = getResources().getColor(R.color.red);
 			
-			horizontalScrollColor.setBackgroundColor(newColor);
+		
 
 		}
 		else if (v == btnRose) {
@@ -289,6 +292,8 @@ public class PaintPanalActivity extends BaseActivity implements
 			horizontalScrollColor.setBackgroundColor(newColor);
 
 		}
+		
+		horizontalScrollColor.setBackgroundColor(newColor);
 
 		
 

@@ -186,6 +186,8 @@ public class Utils implements IDIRConstants {
 			}
 
 		}
+		
+		AlertManager.shorttoastMessage(context, "Save Image");
 
 		return filePath;
 	}
@@ -299,6 +301,8 @@ public class Utils implements IDIRConstants {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		AlertManager.shorttoastMessage(context, "Set Wallpaper");
 		
 	}
 	
