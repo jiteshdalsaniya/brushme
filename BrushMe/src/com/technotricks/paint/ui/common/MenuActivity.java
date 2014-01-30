@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ToggleButton;
 
 import com.technotricks.paint.R;
 import com.technotricks.paint.baseactivity.BaseActivity;
@@ -29,6 +32,8 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 	private Button btnMoreApps;
 	private Button btnSetting;
 	
+	private ToggleButton tglSound;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -47,19 +52,21 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 	private void selectionManager() {
 		SelectorManager.setBackground(btnStart, SelectorManager
 				.getButtonDrawableByScreenCathegory(context,
-						R.drawable.button1,
-						R.drawable.button1_press));
+						R.drawable.button5,
+						R.drawable.button5_press));
 		
-		
-		SelectorManager.setBackground(btnMoreImages, SelectorManager
+		SelectorManager.setBackground(btnSavedImages, SelectorManager
 				.getButtonDrawableByScreenCathegory(context,
 						R.drawable.button2,
 						R.drawable.button2_press));
 		
-		SelectorManager.setBackground(btnSavedImages, SelectorManager
+		
+		SelectorManager.setBackground(btnMoreImages, SelectorManager
 				.getButtonDrawableByScreenCathegory(context,
-						R.drawable.button3,
-						R.drawable.button3_press));
+						R.drawable.button1,
+						R.drawable.button1_press));
+		
+		
 		
 		SelectorManager.setBackground(btnMoreApps, SelectorManager
 				.getButtonDrawableByScreenCathegory(context,
@@ -68,8 +75,11 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 		
 		SelectorManager.setBackground(btnSetting, SelectorManager
 				.getButtonDrawableByScreenCathegory(context,
-						R.drawable.button5,
-						R.drawable.button5_press));
+						R.drawable.button3,
+						R.drawable.button3_press));
+		
+		SelectorManager.setBackground(tglSound, SelectorManager.getToggleButtonSelection(context, R.drawable.sound_off, R.drawable.sound_on));
+	
 		
 		
 		FontManager.setHoloFont(btnStart, context);
@@ -88,6 +98,8 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 
 		btnMoreApps = (Button) findViewById(R.id.btnMoreApps);
 		btnSetting = (Button) findViewById(R.id.btnSetting);
+		
+		tglSound=(ToggleButton)findViewById(R.id.tglSound);
 	}
 
 	private void setListner() {
@@ -96,6 +108,22 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 		btnSavedImages.setOnClickListener(this);
 		btnMoreApps.setOnClickListener(this);
 		btnSetting.setOnClickListener(this);
+		
+		tglSound.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
+
+				if(isChecked){
+					
+				}
+				else{
+					
+				}
+				
+				
+			}
+		});
 	}
 
 	@Override
@@ -119,9 +147,7 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 
 			// System.out.println("SD CARD"+Utils.getSdCardFileList(context).size());
 		} else if (v == btnMoreApps) {
-			i = new Intent(context, ColorPick.class);
-
-			startActivity(i);
+			
 		}
 		 else if (v == btnSetting) {
 			 

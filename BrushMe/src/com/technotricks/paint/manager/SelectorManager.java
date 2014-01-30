@@ -56,7 +56,7 @@ public class SelectorManager {
 		ColorStateList colorStateList = new ColorStateList(
 	            new int[][]{
 	                    new int[]{android.R.attr.state_pressed},
-	                    new int[]{-android.R.attr.state_selected},
+	                    new int[]{-android.R.attr.state_enabled},
 	            },
 	            new int[]{pressedStateResID,normalStateResID});
 		
@@ -66,6 +66,26 @@ public class SelectorManager {
 		
 	}
 	
+	
+	
+	public static Drawable getToggleButtonSelection(Context con,
+			int on, int off) {
+
+		Drawable onDrawable = con.getResources()
+				.getDrawable(on).mutate();
+
+		Drawable offDrawable = con.getResources()
+				.getDrawable(off).mutate();
+
+		StateListDrawable drawable = new StateListDrawable();
+
+		drawable.addState(new int[] { android.R.attr.state_checked },
+				onDrawable);
+		drawable.addState(new int[] { android.R.attr.state_enabled },
+				offDrawable);
+
+		return drawable;
+	}
 	
 	
 	

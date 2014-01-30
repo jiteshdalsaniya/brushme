@@ -45,7 +45,8 @@ public class PaintPanalActivity extends BaseActivity implements
 
 	private Context context;
 	private Intent i;
-	private Button btnColorPicker, btnPurple, btnGreen, btnYellow, btnRed;
+	private Button btnColorPicker, btnPurple, btnGreen, btnYellow, btnRed,btnRose,btnBlue,btnOrange;
+	private Button btnEraser;
 	private ImageView imgPanel;
 	private HorizontalScrollView horizontalScrollColor;
 
@@ -104,6 +105,11 @@ public class PaintPanalActivity extends BaseActivity implements
 		btnYellow = (Button) findViewById(R.id.btnYellow);
 		btnRed = (Button) findViewById(R.id.btnRed);
 
+		btnEraser= (Button) findViewById(R.id.btnEraser);
+		btnRose= (Button) findViewById(R.id.btnRose);
+		btnBlue= (Button) findViewById(R.id.btnBlue);
+		btnOrange= (Button) findViewById(R.id.btnOrange);
+		
 		imgPanel = (ImageView) findViewById(R.id.imgPanel);
 		horizontalScrollColor = (HorizontalScrollView) findViewById(R.id.horizontalScrollColor);
 
@@ -153,7 +159,12 @@ public class PaintPanalActivity extends BaseActivity implements
 		btnGreen.setOnClickListener(this);
 		btnYellow.setOnClickListener(this);
 		btnRed.setOnClickListener(this);
+		btnRose.setOnClickListener(this);
+		btnBlue.setOnClickListener(this);
+		btnOrange.setOnClickListener(this);
+		
 
+		btnEraser.setOnClickListener(this);
 	}
 
 	@Override
@@ -203,7 +214,12 @@ public class PaintPanalActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View v) {
-		if (v == btnColorPicker) {
+		
+		if(v==btnEraser){
+			newColor = getResources().getColor(R.color.white);
+			
+		}
+		else if (v == btnColorPicker) {
 
 			Paint mPaint = new Paint();
 			mPaint.setColor(newColor);
@@ -221,21 +237,47 @@ public class PaintPanalActivity extends BaseActivity implements
 		} else if (v == btnPurple) {
 
 			newColor = getResources().getColor(R.color.purple);
+			
+			horizontalScrollColor.setBackgroundColor(newColor);
 
 		} else if (v == btnGreen) {
 			newColor = getResources().getColor(R.color.green);
+			
+			horizontalScrollColor.setBackgroundColor(newColor);
 
 		} else if (v == btnYellow) {
 			newColor = getResources().getColor(R.color.yellow);
+			
+			horizontalScrollColor.setBackgroundColor(newColor);
 
 		}
 
 		else if (v == btnRed) {
 			newColor = getResources().getColor(R.color.red);
+			
+			horizontalScrollColor.setBackgroundColor(newColor);
+
+		}
+		else if (v == btnRose) {
+			newColor = getResources().getColor(R.color.rose);
+			
+			horizontalScrollColor.setBackgroundColor(newColor);
+
+		}
+		else if (v == btnBlue) {
+			newColor = getResources().getColor(R.color.blue);
+			
+			horizontalScrollColor.setBackgroundColor(newColor);
+
+		}
+		else if (v == btnOrange) {
+			newColor = getResources().getColor(R.color.orange);
+			
+			horizontalScrollColor.setBackgroundColor(newColor);
 
 		}
 
-		horizontalScrollColor.setBackgroundColor(newColor);
+		
 
 	}
 
