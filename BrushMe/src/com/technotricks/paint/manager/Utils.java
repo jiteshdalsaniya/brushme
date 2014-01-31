@@ -215,6 +215,9 @@ public class Utils implements IDIRConstants {
 		Rect bounds = drawable.getBounds();
 		Bitmap bitmap = Bitmap.createBitmap(bounds.width(), bounds.height(),
 				Bitmap.Config.ARGB_8888);
+		// Point p=new Point();
+		//  p.set(5, 5);
+		//  bitmap=waterMark(bitmap, "Kishore..", p, Color.BLUE, 90,50,true);
 		Canvas canvas = new Canvas(bitmap);
 		drawable.draw(canvas);
 		OutputStream fOut = null;
@@ -237,6 +240,38 @@ public class Utils implements IDIRConstants {
 
 		return filePath;
 	}
+	
+	
+	
+
+	
+	
+	public static Bitmap waterMark(Bitmap src, String watermark, Point location, int color, int alpha, int size, boolean underline) {
+		//get source image width and height
+		int w = src.getWidth();
+		int h = src.getHeight();
+		
+		Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
+		//create canvas object
+		Canvas canvas = new Canvas(result);
+		//draw bitmap on canvas
+		canvas.drawBitmap(src, 0, 0, null);
+		//create paint object
+		Paint paint = new Paint();
+		//apply color
+		paint.setColor(color);
+		//set transparency
+		//paint.setAlpha(alpha);
+		//set text size
+		paint.setTextSize(size);
+		paint.setAntiAlias(true);
+		//set should be underlined or not
+		paint.setUnderlineText(underline);
+		//draw text on given location
+		canvas.drawText(watermark, location.x, location.y, paint);
+		
+		return result;
+		}
 
 	public static void share(Context context, String path) {
 		Intent shareCaptionIntent = new Intent(Intent.ACTION_SEND);
@@ -244,9 +279,11 @@ public class Utils implements IDIRConstants {
 
 		shareCaptionIntent.putExtra(Intent.EXTRA_STREAM,
 				Uri.parse("file://" + path));
+		
+		//shareCaptionIntent.putExtra(Intent.EXTRA_TEXT, "Body text of the new status");
 
 		context.startActivity(Intent.createChooser(shareCaptionIntent,
-				"see my pic"));
+				"Share Via"));
 
 	}
 
