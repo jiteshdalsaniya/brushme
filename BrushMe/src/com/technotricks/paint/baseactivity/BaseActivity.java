@@ -106,11 +106,13 @@ public class BaseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		SoundManager.instance().load(this);
 		
-		//Remove title bar
+/*		//Remove title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		//Remove notification bar
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		*/
+		
 		chartBoostSetup();
 
 	}
