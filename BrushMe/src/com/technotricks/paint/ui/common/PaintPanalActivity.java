@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,6 +38,7 @@ import com.technotricks.paint.constants.IResultConstants;
 import com.technotricks.paint.customclass.FloodFill;
 import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.manager.ColorPickerDialog;
+import com.technotricks.paint.manager.CustomProgressDialog;
 import com.technotricks.paint.manager.SoundManager;
 import com.technotricks.paint.manager.Utils;
 import com.technotricks.paint.ui.common.ColorPick.OnColorCodeChangedListener;
@@ -71,6 +73,11 @@ public class PaintPanalActivity extends BaseActivity implements
 	// Type..
 	String ACTIVITY_TYPE = "";
 	String imagePath = "";
+	
+	
+	private CustomProgressDialog progressDialog;
+	
+	FillColorAsync fillColor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +129,8 @@ public class PaintPanalActivity extends BaseActivity implements
 		imgPanel = (ImageView) findViewById(R.id.imgPanel);
 		
 		newColor = getResources().getColor(R.color.purple);
+		
+		progressDialog=CustomProgressDialog.show(context, true);
 		
 		horizontalScrollColor = (HorizontalScrollView) findViewById(R.id.horizontalScrollColor);
 		horizontalScrollColor.setBackgroundColor(newColor);
@@ -352,7 +361,11 @@ public class PaintPanalActivity extends BaseActivity implements
 			}
 			savedMatrix.set(matrix);
 			start.set(event.getX(), event.getY());
-			hRefresh.sendEmptyMessage(3);
+			//hRefresh.sendEmptyMessage(3);
+			
+			
+			 fillColor=new FillColorAsync();
+			fillColor.execute();
 
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
@@ -475,6 +488,46 @@ public class PaintPanalActivity extends BaseActivity implements
 
 			loadImage(imagePath);
 		}
+	}
+	
+	private class FillColorAsync extends AsyncTask<Void, Void, Void>{
+
+		
+		
+		
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			
+			progressDialog.show();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+
+
+			FloodFill floodfill = new FloodFill(bitmap, color, newColor);
+			floodfill.fill(originalImageOffsetX, originalImageOffsetY);
+
+			
+			
+			return null;
+		}
+		
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			
+			progressDialog.dismiss();
+			imgPanel.invalidate();
+			
+			
+		}
+		
 	}
 
 }

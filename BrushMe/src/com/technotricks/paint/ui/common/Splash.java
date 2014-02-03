@@ -7,6 +7,7 @@ import com.technotricks.paint.manager.Utils;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,14 +17,15 @@ public class Splash extends Activity {
 	private Context context;
 	private Intent i;
 
-	private final int SPLASH_DISPLAY_LENGTH = 500;
+	private final int SPLASH_DISPLAY_LENGTH = 5000;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-
+		
 		context = this;
 
 		

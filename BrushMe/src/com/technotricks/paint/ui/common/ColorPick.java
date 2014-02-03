@@ -44,10 +44,11 @@ public class ColorPick extends Dialog {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.color_picker_alert);
 		
-		final TextView textViewColor=(TextView)findViewById(R.id.textView1);
 		
 		ColorPicker picker = (ColorPicker) findViewById(R.id.picker);
 		ValueBar valueBar = (ValueBar) findViewById(R.id.valuebar);
+		
+		
 		picker.addValueBar(valueBar);
 		
 		
@@ -57,7 +58,7 @@ public class ColorPick extends Dialog {
 
 		//To set the old selected color u can do it like this
 		picker.setOldCenterColor(mInitialColor);
-		
+		picker.setNewCenterColor(mInitialColor);
 		
 		// adds listener to the colorpicker which is implemented
 		//in the activity
@@ -73,7 +74,7 @@ public class ColorPick extends Dialog {
 
 			@Override
 			public void onCenterButtonClick(int color) {
-				textViewColor.setBackgroundColor(color);
+				
 				mListener.colorChanged(color);
 				dismiss();
 				
