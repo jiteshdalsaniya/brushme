@@ -22,7 +22,8 @@
         <activity
             android:name=".ui.common.Splash"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+              android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,13 +31,18 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.common.MenuActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.common.ImageListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.common.MenuActivity"  android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar"/>
+        <activity android:name=".ui.common.ImageListActivity"  android:screenOrientation="portrait"
+              android:theme="@android:style/Theme.Black.NoTitleBar"/>
         
-          <activity android:name=".ui.common.PaintPanalActivity"  android:screenOrientation="portrait"/>
+          <activity android:name=".ui.common.PaintPanalActivity"  android:screenOrientation="portrait"
+              />
           
-          <activity android:name=".ui.common.CoverflowActivity"  android:screenOrientation="portrait"/>
-          <activity android:name=".ui.common.ColorPick"  android:screenOrientation="portrait"/>
+          <activity android:name=".ui.common.CoverflowActivity"  android:screenOrientation="portrait"
+              android:theme="@android:style/Theme.Black.NoTitleBar"/>
+          <activity android:name=".ui.common.ColorPick"  android:screenOrientation="portrait"
+              android:theme="@android:style/Theme.Black.NoTitleBar"/>
           
           
           
