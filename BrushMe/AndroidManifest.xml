@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme"
         android:name=".baseactivity.MyApplication">
         <activity
-            android:name=".ui.common.Splash"
+            android:name=".ui.common.SplashAnimated"
             android:label="@string/app_name"
             android:screenOrientation="portrait" 
               android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
@@ -38,6 +38,7 @@
         
           <activity android:name=".ui.common.PaintPanalActivity"  android:screenOrientation="portrait"
               />
+          <activity android:name=".ui.common.FillColorActivity"  android:screenOrientation="portrait"/>
           
           <activity android:name=".ui.common.CoverflowActivity"  android:screenOrientation="portrait"
               android:theme="@android:style/Theme.Black.NoTitleBar"/>
