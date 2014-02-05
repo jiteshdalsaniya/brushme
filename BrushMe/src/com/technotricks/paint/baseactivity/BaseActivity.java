@@ -203,15 +203,15 @@ public class BaseActivity extends Activity {
 			else if (flag == 2) {
 				/*revMobSetup();
 				showPopup();*/
+				showFullscreen();
 				
-				showInterstitial();
 			}
 
 			else if (flag == 3) {
 			/*	revMobSetup();
 				showAdLink();*/
 				
-				 showInterstitial();
+				showFullscreen();
 
 
 			}
