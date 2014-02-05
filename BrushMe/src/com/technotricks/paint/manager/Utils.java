@@ -290,6 +290,10 @@ public class Utils implements IDIRConstants {
 	
 
 	public static void setAsWallpaper(Context context,String path) {
+		
+		//SDCARD_FILE_DIR
+		
+		path=path.replace(SDCARD_FILE_DIR, "");
 
 		WindowManager wm = (WindowManager) context.getApplicationContext()
 				.getSystemService(Context.WINDOW_SERVICE);
