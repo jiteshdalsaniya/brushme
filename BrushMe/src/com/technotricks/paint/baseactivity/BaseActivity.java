@@ -18,6 +18,7 @@ import com.revmob.ads.link.RevMobLink;
 import com.revmob.ads.popup.RevMobPopup;
 
 import com.revmob.internal.RMLog;
+import com.startapp.android.publish.StartAppAd;
 import com.technotricks.paint.manager.SoundManager;
 
 import android.annotation.SuppressLint;
@@ -29,12 +30,8 @@ import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
-import android.widget.Toast; 
 
 
 
@@ -72,7 +69,7 @@ public class BaseActivity extends Activity {
 	 * android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 	 */
 
-	private boolean isAd = false;
+	private boolean isAd = true;
 
 	private int flag = 5;
 
@@ -95,7 +92,7 @@ public class BaseActivity extends Activity {
 	
 	//leadbolt...
 	
-	
+	private StartAppAd startAppAd;
 	
 	//mem catche
 	 protected ImageLoader imageLoader = ImageLoader.getInstance();
@@ -114,7 +111,29 @@ public class BaseActivity extends Activity {
 		*/
 		
 		chartBoostSetup();
+		
+		StartAppAd.init(this, "101512775 ", "202867565");
+		startAppAd = new StartAppAd(this);
+	
+		startAppAd.showAd();
+		startAppAd.loadAd();
+		
 
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		startAppAd.onResume();
+		super.onResume();
+		
+		
+	}
+	
+	@Override
+	public void onBackPressed() {
+		startAppAd.onBackPressed();
+		super.onBackPressed();
 	}
 
 	@Override
@@ -138,13 +157,22 @@ public class BaseActivity extends Activity {
 		
 		
 	}
-
 	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
+		startAppAd.onPause();
+	
+	}
+
+		
 	
 	public void setupAd(/*ViewGroup top,ViewGroup bottom*/) {
 
 		currentActivity = this;
-		flag = random.nextInt(7);
+		flag = random.nextInt(6);
 
 		System.out.println("Show Ad Flag =" + flag);
 
@@ -161,41 +189,37 @@ public class BaseActivity extends Activity {
 				
 				
 
-			} else if (flag == 1) {
+			} 
 
-				showMoreButtonClick();
-
-			}
-
-			else if (flag == 2) {
+			else if (flag == 1) {
 
 				 showInterstitial();
 
 			}
 
-			else if (flag == 3) {
+			else if (flag == 2) {
 				revMobSetup();
 				showPopup();
 			}
 
-			else if (flag == 4) {
-				revMobSetup();
-				showAdLink();
+			else if (flag == 3) {
+			/*	revMobSetup();
+				showAdLink();*/
+				
+				 showInterstitial();
 
+
+			}
+
+			else if (flag == 4) {
+			
+				
+				
+				 showInterstitial();
+			
 			}
 
 			else if (flag == 5) {
-			
-				//revMobSetup();
-
-				//showAbsoluteBannerOnBottom();
-				
-				revMobSetup();
-				showFullscreen();
-			
-			}
-
-			else if (flag == 6) {
 				
 				
 				revMobSetup();
@@ -203,14 +227,22 @@ public class BaseActivity extends Activity {
 				//showadMob();
 			}
 			
+			else if (flag == 6) {
+				
+				
+				revMobSetup();
+				showFullscreen();
+				
+			}
 			
 			
-			showadMob();
 			
-			revMobSetup();
+		//	showadMob(Gravity.BOTTOM);
+			
+			//revMobSetup();
 		//	showBannerCustomSize(top);
 			//showBannerCustomSize(bottom);
-			showAbsoluteBannerOnTop();
+			//showAbsoluteBannerOnTop();
 			//showAbsoluteBannerOnBottom();
 			
 			
@@ -220,8 +252,8 @@ public class BaseActivity extends Activity {
 	public void chartBoostSetup() {
 
 		this.cb = Chartboost.sharedChartboost();
-		String appId = "52ba85f5f8975c300e6ee910";
-		String appSignature = "58d0d48a306f7319dc80b0475d87bd83bb9d6b87";
+		String appId = "52f1fc452d42da43861d67a7";
+		String appSignature = "58f8d1b964206828ee847336232e5afe619211e9";
 		this.cb.onCreate(this, appId, appSignature, this.chartBoostDelegate);
 
 		this.cb.startSession();
@@ -324,9 +356,9 @@ public class BaseActivity extends Activity {
 			// interstitial fails to load
 
 			Log.i(TAG, "INTERSTITIAL '" + location + "' REQUEST FAILED");
-			Toast.makeText(currentActivity,
+			/*Toast.makeText(currentActivity,
 					"Interstitial '" + location + "' Load Failed",
-					Toast.LENGTH_SHORT).show();
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -346,9 +378,9 @@ public class BaseActivity extends Activity {
 			cb.cacheInterstitial(location);
 
 			Log.i(TAG, "INTERSTITIAL '" + location + "' DISMISSED");
-			Toast.makeText(currentActivity,
+			/*Toast.makeText(currentActivity,
 					"Dismissed Interstitial '" + location + "'",
-					Toast.LENGTH_SHORT).show();
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -361,9 +393,9 @@ public class BaseActivity extends Activity {
 		@Override
 		public void didCloseInterstitial(String location) {
 			Log.i(TAG, "INSTERSTITIAL '" + location + "' CLOSED");
-			Toast.makeText(currentActivity,
+			/*Toast.makeText(currentActivity,
 					"Closed Interstitial '" + location + "'",
-					Toast.LENGTH_SHORT).show();
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -376,9 +408,9 @@ public class BaseActivity extends Activity {
 		@Override
 		public void didClickInterstitial(String location) {
 			Log.i(TAG, "DID CLICK INTERSTITIAL '" + location + "'");
-			Toast.makeText(currentActivity,
+			/*Toast.makeText(currentActivity,
 					"Clicked Interstitial '" + location + "'",
-					Toast.LENGTH_SHORT).show();
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -410,8 +442,8 @@ public class BaseActivity extends Activity {
 			// interstitial fails to load
 
 			Log.i(TAG, "URL '" + url + "' REQUEST FAILED");
-			Toast.makeText(currentActivity, "URL '" + url + "' Load Failed",
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(currentActivity, "URL '" + url + "' Load Failed",
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -473,8 +505,8 @@ public class BaseActivity extends Activity {
 		@Override
 		public void didFailToLoadMoreApps() {
 			Log.i(TAG, "MORE APPS REQUEST FAILED");
-			Toast.makeText(currentActivity, "More Apps Load Failed",
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(currentActivity, "More Apps Load Failed",
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -497,8 +529,8 @@ public class BaseActivity extends Activity {
 		@Override
 		public void didDismissMoreApps() {
 			Log.i(TAG, "MORE APPS DISMISSED");
-			Toast.makeText(currentActivity, "Dismissed More Apps",
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(currentActivity, "Dismissed More Apps",
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -511,8 +543,8 @@ public class BaseActivity extends Activity {
 		@Override
 		public void didCloseMoreApps() {
 			Log.i(TAG, "MORE APPS CLOSED");
-			Toast.makeText(currentActivity, "Closed More Apps",
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(currentActivity, "Closed More Apps",
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -525,8 +557,8 @@ public class BaseActivity extends Activity {
 		@Override
 		public void didClickMoreApps() {
 			Log.i(TAG, "MORE APPS CLICKED");
-			Toast.makeText(currentActivity, "Clicked More Apps",
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(currentActivity, "Clicked More Apps",
+					Toast.LENGTH_SHORT).show();*/
 		}
 
 		/*
@@ -584,8 +616,8 @@ public class BaseActivity extends Activity {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(currentActivity, message, Toast.LENGTH_SHORT)
-						.show();
+				/*Toast.makeText(currentActivity, message, Toast.LENGTH_SHORT)
+						.show();*/
 			}
 		});
 	}
@@ -628,15 +660,14 @@ public class BaseActivity extends Activity {
 	
 	//adMob
 	@SuppressLint("NewApi")
-	public void showadMob() {
+	public void showadMob(int gravity) {
 		AdView adView = new AdView(this, AdSize.BANNER,
 				"a152b96e8b244ee");
 		AdRequest request = new AdRequest();
 		request.addTestDevice(AdRequest.TEST_EMULATOR);
 		adView.loadAd(request);
-		adView.setGravity(Gravity.TOP);
-		adView.setY(100);
-
+		adView.setGravity(gravity);
+		
 		RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.MATCH_PARENT,
 				RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -700,7 +731,7 @@ public class BaseActivity extends Activity {
 		String toastStr = "Loading Interstitial";
 		if (cb.hasCachedInterstitial())
 			toastStr = "Loading Interstitial From Cache";
-		Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
+		/*Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();*/
 	}
 
 	public void showMoreButtonClick() {
@@ -712,7 +743,7 @@ public class BaseActivity extends Activity {
 		String toastStr = "Showing More-Apps";
 		if (cb.hasCachedMoreApps())
 			toastStr = "Showing More-Apps From Cache";
-		Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
 
 	}
 

@@ -46,6 +46,8 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 		context = this;
 
 		setupAd();
+		showAbsoluteBannerOnBottom();
+		
 		intializeUI();
 		selectionManager();
 		setListner();
@@ -169,7 +171,7 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 
 			// System.out.println("SD CARD"+Utils.getSdCardFileList(context).size());
 		} else if (v == btnMoreApps) {
-			
+			showMoreButtonClick();
 		}
 		 else if (v == btnSetting) {
 			 

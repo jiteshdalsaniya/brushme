@@ -101,7 +101,6 @@ public class PaintPanalActivity extends BaseActivity implements
 		setupAd();
 		intializeUI();
 		setListner();
-
 		// initializeCanvas();
 
 	}
@@ -130,7 +129,7 @@ public class PaintPanalActivity extends BaseActivity implements
 		
 		newColor = getResources().getColor(R.color.purple);
 		
-		progressDialog=CustomProgressDialog.show(context, true);
+		progressDialog=CustomProgressDialog.show(context, false);
 		
 		horizontalScrollColor = (HorizontalScrollView) findViewById(R.id.horizontalScrollColor);
 		horizontalScrollColor.setBackgroundColor(newColor);
