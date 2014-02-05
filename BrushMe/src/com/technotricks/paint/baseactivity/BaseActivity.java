@@ -693,10 +693,13 @@ public class BaseActivity extends Activity {
 	
 	
 	public void showAbsoluteBannerOnTop() {
+		revMobSetup();
 		revmob.showBanner(currentActivity, Gravity.TOP, null, revmobListener);
 	}
 
 	public void showAbsoluteBannerOnBottom() {
+		
+		revMobSetup();
 		revmob.showBanner(currentActivity, Gravity.BOTTOM, null, revmobListener);
 		
 		

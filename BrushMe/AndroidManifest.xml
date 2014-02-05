@@ -71,6 +71,12 @@
         <activity
             android:name=".ui.common.ImageListActivity"
             android:screenOrientation="portrait"/>
+        
+        <activity
+            android:name=".ui.common.FullScreenActivity"
+            android:screenOrientation="portrait"/>
+        
+        
         <activity
             android:name=".ui.common.PaintPanalActivity"
             android:screenOrientation="portrait" />

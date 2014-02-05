@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/startAppBanner"
+       
         />
     
     <com.startapp.android.publish.banner.banner3d.Banner3D

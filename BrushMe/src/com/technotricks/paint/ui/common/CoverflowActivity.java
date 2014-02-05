@@ -55,7 +55,7 @@ public class CoverflowActivity extends BaseActivity implements IResultConstants{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_fullscreen);
+		setContentView(R.layout.activity_coverflow);
 		
 		
 		

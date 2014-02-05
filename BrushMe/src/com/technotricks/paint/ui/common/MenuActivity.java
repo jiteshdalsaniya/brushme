@@ -45,12 +45,11 @@ public class MenuActivity extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.activity_menu);
 		context = this;
 
-		//setupAd();
-		//revMobSetup();
-		//showAbsoluteBannerOnBottom();
+		setupAd();
 		
+		showAbsoluteBannerOnBottom();
 		
-		showInterstitial();
+	
 		
 		intializeUI();
 		selectionManager();
