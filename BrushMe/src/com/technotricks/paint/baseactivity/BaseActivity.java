@@ -90,7 +90,7 @@ public class BaseActivity extends Activity {
 	private static final String TAG = "Chartboost";
 	
 	
-	//leadbolt...
+	//StartAppAd...
 	
 	private StartAppAd startAppAd;
 	
@@ -125,6 +125,7 @@ public class BaseActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		startAppAd.onResume();
+		
 		super.onResume();
 		
 		
@@ -177,13 +178,15 @@ public class BaseActivity extends Activity {
 		System.out.println("Show Ad Flag =" + flag);
 
 		if (isAd) {
+			
+			System.out.println("Ad Selected= "+flag);
+			revMobSetup();
+
 
 			if (flag == 0) {
 
-				revMobSetup();
-
-				// showAbsoluteBannerOnTop();
-				// 
+				
+				
 				showFullscreen();
 				
 				
@@ -198,8 +201,10 @@ public class BaseActivity extends Activity {
 			}
 
 			else if (flag == 2) {
-				revMobSetup();
-				showPopup();
+				/*revMobSetup();
+				showPopup();*/
+				
+				showInterstitial();
 			}
 
 			else if (flag == 3) {
@@ -222,15 +227,14 @@ public class BaseActivity extends Activity {
 			else if (flag == 5) {
 				
 				
-				revMobSetup();
+				
 				showFullscreen();
 				//showadMob();
 			}
 			
 			else if (flag == 6) {
 				
-				
-				revMobSetup();
+			
 				showFullscreen();
 				
 			}
@@ -707,6 +711,7 @@ public class BaseActivity extends Activity {
 	public void showPopup() {
 
 		revmob.showPopup(currentActivity);
+		
 	}
 
 	public void showAdLink() {
@@ -725,6 +730,7 @@ public class BaseActivity extends Activity {
 		 * Notes: - Shows a cached interstitial if one exists - Otherwise
 		 * requests an interstitial and shows it
 		 */
+		
 		this.cb.showInterstitial();
 
 		Log.i(TAG, "showInterstitial");

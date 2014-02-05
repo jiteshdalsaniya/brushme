@@ -67,7 +67,7 @@
         <activity
             android:name=".ui.common.MenuActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            />
         <activity
             android:name=".ui.common.ImageListActivity"
             android:screenOrientation="portrait"/>

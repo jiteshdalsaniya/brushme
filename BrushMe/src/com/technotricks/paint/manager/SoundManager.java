@@ -51,13 +51,15 @@ public class SoundManager
   {
     if (!this.musicPlayer.isPlaying())
     {
-      this.musicPlayer.seekTo(0);
+      //this.musicPlayer.seekTo(0);
       this.musicPlayer.start();
     }
   }
 
   public void stopBackgroundMusic()
   {
+	  if((this.musicPlayer!=null ) &&(this.musicPlayer.isPlaying()))
+	  
     this.musicPlayer.pause();
   }
 }
