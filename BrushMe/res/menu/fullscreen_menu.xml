@@ -17,20 +17,7 @@
         android:title="@string/action_share"
         />
     
-     <item
-        android:id="@+id/action_new"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/action_new"
-        />
-       <item
-        android:id="@+id/action_save"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:icon="@android:drawable/ic_menu_save"
-        android:title="@string/action_save"
-        />
+  
   
 
      
