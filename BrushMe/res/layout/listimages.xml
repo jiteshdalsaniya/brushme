@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey">
+    android:background="@color/black">
 
     <GridView
         android:id="@+id/gridImages"
@@ -10,10 +10,15 @@
         android:layout_height="wrap_content"
         
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/relBottom"
+        android:layout_above="@+id/startAppBanner"
         />
     
+    <com.startapp.android.publish.banner.banner3d.Banner3D
+android:id="@+id/startApp3DBanner"
+android:layout_width="match_parent"
 
-   
+android:layout_height="wrap_content"
+android:layout_alignParentBottom="true"/> 
+
 
 </RelativeLayout>
