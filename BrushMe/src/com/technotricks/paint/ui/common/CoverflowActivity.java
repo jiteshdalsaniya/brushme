@@ -1,4 +1,4 @@
-package com.technotricks.paint.ui.common;
+/*package com.technotricks.paint.ui.common;
 
 import java.util.ArrayList;
 
@@ -82,7 +82,7 @@ public class CoverflowActivity extends BaseActivity implements IResultConstants{
 		coverFlow.setSpacing(10);
 		coverFlow.setAdapter(adapter);
 		
-		/*Singleton.getInstance().InitGUIFrame(this);
+		Singleton.getInstance().InitGUIFrame(this);
 		
 		int padding = m_Inst.Scale(10);
 		
@@ -115,10 +115,11 @@ public class CoverflowActivity extends BaseActivity implements IResultConstants{
 		    
 		    AppUtils.AddView(panel, carouselView, LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT, 
 	        		new int[][]{new int[]{RelativeLayout.CENTER_IN_PARENT}},
-	        		-1, -1); */
+	        		-1, -1); 
 	}
 	
 	
 	
 
 }
+*/

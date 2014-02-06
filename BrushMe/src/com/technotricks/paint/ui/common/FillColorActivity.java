@@ -1,4 +1,4 @@
-package com.technotricks.paint.ui.common;
+/*package com.technotricks.paint.ui.common;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -30,12 +30,12 @@ private MyView myView;
 Button red, blue, yellow;
 Paint paint;
 
-/** Called when the activity is first created. */
-/*
+*//** Called when the activity is first created. *//*
+
  * 
  * private ImageView imageView; private Canvas cv; private Bitmap mask,
  * original, colored; private int r,g,b; private int sG, sR, sB;
- */
+ 
 @Override
 public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -223,4 +223,4 @@ public boolean onTouch(View v, MotionEvent event) {
     // TODO Auto-generated method stub
     return false;
 }
-}
+}*/

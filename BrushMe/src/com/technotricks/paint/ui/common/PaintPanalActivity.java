@@ -129,7 +129,7 @@ public class PaintPanalActivity extends BaseActivity implements
 		
 		newColor = getResources().getColor(R.color.purple);
 		
-		progressDialog=CustomProgressDialog.show(context, false);
+		progressDialog=CustomProgressDialog.showLove(context, false);
 		
 		horizontalScrollColor = (HorizontalScrollView) findViewById(R.id.horizontalScrollColor);
 		horizontalScrollColor.setBackgroundColor(newColor);
@@ -500,7 +500,9 @@ public class PaintPanalActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			super.onPreExecute();
 			
-			progressDialog.show();
+			//progressDialog.show();
+			
+			CustomProgressDialog.showProgress(progressDialog);
 		}
 
 		@Override
@@ -521,7 +523,9 @@ public class PaintPanalActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			
-			progressDialog.dismiss();
+			//progressDialog.dismiss();
+			
+			CustomProgressDialog.dissmissProgress(progressDialog);
 			imgPanel.invalidate();
 			
 			
