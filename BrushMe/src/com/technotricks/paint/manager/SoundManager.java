@@ -51,6 +51,8 @@ public class SoundManager
   {
     if (!this.musicPlayer.isPlaying())
     {
+    	
+
       //this.musicPlayer.seekTo(0);
       this.musicPlayer.start();
     }

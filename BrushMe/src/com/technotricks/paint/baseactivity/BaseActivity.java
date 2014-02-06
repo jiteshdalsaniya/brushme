@@ -19,6 +19,7 @@ import com.revmob.ads.popup.RevMobPopup;
 
 import com.revmob.internal.RMLog;
 import com.startapp.android.publish.StartAppAd;
+import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.manager.SoundManager;
 
 import android.annotation.SuppressLint;
@@ -129,6 +130,11 @@ public class BaseActivity extends Activity {
 		super.onResume();
 		
 		
+if(AppPreferenceManager.getSoundState(BaseActivity.this)){
+			
+			SoundManager.instance().startBackgroundMusic();
+		}
+		
 	}
 	
 	@Override
@@ -165,6 +171,11 @@ public class BaseActivity extends Activity {
 		super.onPause();
 		
 		startAppAd.onPause();
+		
+if(AppPreferenceManager.getSoundState(BaseActivity.this)){
+			
+			SoundManager.instance().stopBackgroundMusic();
+		}
 	
 	}
 
