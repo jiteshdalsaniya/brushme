@@ -17,6 +17,7 @@ import com.technotricks.paint.model.ImagesGridModel;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -289,10 +290,11 @@ public class Utils implements IDIRConstants {
 
 	
 
+	@SuppressLint("NewApi")
 	public static void setAsWallpaper(Context context,String path) {
 		
 		//SDCARD_FILE_DIR
-		
+	
 		path=path.replace(SDCARD_FILE_DIR, "");
 
 		WindowManager wm = (WindowManager) context.getApplicationContext()
@@ -307,41 +309,22 @@ public class Utils implements IDIRConstants {
 		((WindowManager)context. getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay().getMetrics(displayMetrics);
 
-		int statusBarHeight;
-
-		switch (displayMetrics.densityDpi) {
-		case DisplayMetrics.DENSITY_HIGH:
-			statusBarHeight = HIGH_DPI_STATUS_BAR_HEIGHT;
-			break;
-		case DisplayMetrics.DENSITY_MEDIUM:
-			statusBarHeight = MEDIUM_DPI_STATUS_BAR_HEIGHT;
-			break;
-		case DisplayMetrics.DENSITY_LOW:
-			statusBarHeight = LOW_DPI_STATUS_BAR_HEIGHT;
-			break;
-		default:
-			statusBarHeight = MEDIUM_DPI_STATUS_BAR_HEIGHT;
-		}
-		Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.img_1),
-				2 * width, height, true);
-
-		height = height - statusBarHeight;
-
-		Bitmap bitmap = Bitmap.createScaledBitmap(
-				BitmapFactory.decodeFile(path), width, height, false);
-
-		Canvas canvas = new Canvas(bmp);
-		canvas.drawColor(Color.RED);
-		canvas.drawBitmap(bitmap, 0, statusBarHeight, new Paint(Color.WHITE));
-		canvas.drawBitmap(bitmap, width, statusBarHeight,
-				new Paint(Color.WHITE));
 		
-		try {
-			context.getApplicationContext().setWallpaper(bmp);
+		 WallpaperManager myWallpaperManager = WallpaperManager
+                 .getInstance(context);
+
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(path), width,
+        		height, true);
+        myWallpaperManager.suggestDesiredDimensions(
+                bitmapResized.getWidth(), bitmapResized.getHeight());
+
+        try {
+			myWallpaperManager.setBitmap(bitmapResized);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 		
 		AlertManager.shorttoastMessage(context, "Set Wallpaper");
 		
