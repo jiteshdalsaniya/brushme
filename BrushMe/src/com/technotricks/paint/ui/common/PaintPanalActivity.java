@@ -3,6 +3,7 @@ package com.technotricks.paint.ui.common;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -82,6 +83,8 @@ public class PaintPanalActivity extends BaseActivity implements
 	
 	FillColorAsync fillColor;
 
+
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -90,6 +93,10 @@ public class PaintPanalActivity extends BaseActivity implements
 		setContentView(R.layout.activity_paintpanal);
 
 		context = this;
+		
+		if (android.os.Build.VERSION.SDK_INT >= 11) {
+			getActionBar().setDisplayShowTitleEnabled(false);
+		}
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
