@@ -3,6 +3,7 @@ package com.technotricks.paint.ui.common;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -36,6 +38,7 @@ import com.technotricks.paint.baseactivity.BaseActivity;
 import com.technotricks.paint.constants.IIntentConstants;
 import com.technotricks.paint.constants.IResultConstants;
 import com.technotricks.paint.customclass.FloodFill;
+import com.technotricks.paint.customclass.floodFill.FloodFillThread;
 import com.technotricks.paint.manager.AppPreferenceManager;
 import com.technotricks.paint.manager.ColorPickerDialog;
 import com.technotricks.paint.manager.CustomProgressDialog;
@@ -364,8 +367,23 @@ public class PaintPanalActivity extends BaseActivity implements
 			
 			
 			 fillColor=new FillColorAsync();
-			fillColor.execute();
-
+			//fillColor.execute();
+			 
+			 final ProgressDialog dialog=new ProgressDialog(context);
+			 
+			 FloodFillThread fillThread=new FloodFillThread(dialog, new Runnable() {
+				
+				@Override
+				public void run() {
+				
+					System.out.println("RUN......");
+					imgPanel.invalidate();
+				}
+			}, _alteredBitmap, new Point(originalImageOffsetX, originalImageOffsetY ), color	, newColor);
+			 fillThread.start();
+			 
+			 
+			
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
 
